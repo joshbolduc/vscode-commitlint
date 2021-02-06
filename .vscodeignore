@@ -1,0 +1,11 @@
+.vscode/**
+src/**
+.gitignore
+**/tsconfig.json
+**/.prettierignore
+**/.prettierrc
+**/.eslintrc.json
+**/commitlint.config.js
+**/webpack.config.js
+**/*.map
+**/*.ts
