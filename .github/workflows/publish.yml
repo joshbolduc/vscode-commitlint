@@ -32,6 +32,11 @@ jobs:
         run: npm run deploy
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
+      - name: Generate changelog
+        run: touch null.txt && npx standard-changelog -o changelog.release.md -r 2 -i null.txt
+      - name: Read changelog
+        id: changelog
+        run: echo "::set-output name=changelog::$(cat changelog.release.md)"
       - name: Create release
         uses: svenstaro/upload-release-action@v2
         with:
@@ -40,3 +45,4 @@ jobs:
           tag: ${{ github.ref }}
           overwrite: true
           file_glob: true
+          body: ${{ steps.changelog.outputs.changelog }}
