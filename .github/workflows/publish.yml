@@ -36,7 +36,12 @@ jobs:
         run: touch null.txt && npx standard-changelog -o changelog.release.md -r 2 -i null.txt
       - name: Read changelog
         id: changelog
-        run: echo "::set-output name=changelog::$(cat changelog.release.md)"
+        run: |
+          export CHANGELOG="$(cat changelog.release.md)"
+          CHANGELOG="${CHANGELOG//'%'/'%25'}"
+          CHANGELOG="${CHANGELOG//$'\n'/'%0A'}"
+          CHANGELOG="${CHANGELOG//$'\r'/'%0D'}"
+          echo "::set-output name=changelog::$(echo "$CHANGELOG")"
       - name: Create release
         uses: svenstaro/upload-release-action@v2
         with:
