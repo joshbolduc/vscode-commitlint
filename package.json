@@ -34,7 +34,7 @@
     "build": "webpack --config ./webpack.config.js",
     "watch": "webpack --watch --config ./webpack.config.js",
     "build:production": "NODE_ENV=production webpack --config ./webpack.config.js",
-    "package": "npm run build:production && vsce package",
+    "package": "npm run build:production && vsce package --githubBranch main",
     "deploy": "vsce publish",
     "format": "prettier --check '{.vscode,src}/**/*.{json,ts}' '*.{json,md}'",
     "format:fix": "npm run format -- --write",
