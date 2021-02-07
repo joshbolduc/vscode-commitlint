@@ -8,7 +8,7 @@ A VS Code extension that integrates [commitlint](https://github.com/conventional
 
 <!-- endregion exclude-from-marketplace -->
 
-![Screenshot of a commit message with linting issues](images/vscode-commitlint.png)
+![Animation of a commit message with linting issues being corrected](images/vscode-commitlint.png)
 
 ## Features
 
