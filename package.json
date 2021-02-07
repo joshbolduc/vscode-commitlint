@@ -39,7 +39,8 @@
     "format": "prettier --check '{.vscode,src}/**/*.{json,ts}' '*.{json,md}'",
     "format:fix": "npm run format -- --write",
     "lint": "eslint src --ext ts",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "release": "standard-version"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^11.0.0",
@@ -52,6 +53,7 @@
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-import": "^2.22.1",
     "prettier": "^2.2.1",
+    "standard-version": "^9.1.0",
     "ts-loader": "^8.0.15",
     "typescript": "^4.1.3",
     "vsce": "^1.85.0",
