@@ -2,11 +2,7 @@
 
 A VS Code extension that integrates [commitlint](https://github.com/conventional-changelog/commitlint) into [VS Code's commit editor](https://code.visualstudio.com/docs/editor/versioncontrol#_vs-code-as-git-editor).
 
-<!-- region exclude-from-marketplace -->
-
-[Install from the Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=joshbolduc.commitlint)
-
-<!-- endregion exclude-from-marketplace -->
+**[Install from the Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=joshbolduc.commitlint)**
 
 ![Animation of a commit message with linting issues being corrected](images/vscode-commitlint.png)
 
