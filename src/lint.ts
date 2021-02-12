@@ -3,8 +3,8 @@ import { ParserOptions } from '@commitlint/types';
 import { loadConfig } from './config';
 import { updateStatusBar } from './statusBar';
 
-export async function runLint(text: string, filePath: string) {
-  const config = await loadConfig(filePath);
+export async function runLint(text: string, path: string | undefined) {
+  const config = await loadConfig(path);
 
   const ruleCount = Object.keys(config.rules).length;
   updateStatusBar(ruleCount);

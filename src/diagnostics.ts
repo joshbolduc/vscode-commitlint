@@ -5,6 +5,7 @@ import {
   DiagnosticSeverity,
   Range,
   TextDocument,
+  workspace,
 } from 'vscode';
 import { runLint } from './lint';
 import {
@@ -66,7 +67,12 @@ async function getDiagnostics(doc: TextDocument) {
   const sanitizedText = getCleanText(text);
 
   const [problems, commit] = await Promise.all([
-    runLint(sanitizedText, doc.uri.fsPath),
+    runLint(
+      sanitizedText,
+      doc.isUntitled
+        ? workspace.workspaceFolders?.[0].uri.fsPath
+        : doc.uri.fsPath,
+    ),
     parseCommit(sanitizedText),
   ]);
 
