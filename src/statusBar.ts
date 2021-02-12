@@ -10,6 +10,12 @@ export function initStatusBar() {
     StatusBarAlignment.Right,
     PRIORITY,
   );
+
+  statusBarItem.text = 'commitlint';
+  statusBarItem.tooltip = undefined;
+  statusBarItem.accessibilityInformation = {
+    label: 'Commit lint is running.',
+  };
 }
 
 export function updateStatusBar(ruleCount?: number) {
@@ -22,19 +28,13 @@ export function updateStatusBar(ruleCount?: number) {
         label:
           'Commit lint is running. No rules loaded. Commit lint may not have been configured for this repository.',
       };
-    } else if (ruleCount !== undefined) {
+    } else if (typeof ruleCount === 'number') {
       statusBarItem.text = '$(check) commitlint';
       statusBarItem.tooltip = `${ruleCount} ${
         ruleCount === 1 ? 'rule' : 'rules'
       } loaded`;
       statusBarItem.accessibilityInformation = {
         label: `Commit lint is running. ${ruleCount} rules loaded.`,
-      };
-    } else {
-      statusBarItem.text = 'commitlint';
-      statusBarItem.tooltip = undefined;
-      statusBarItem.accessibilityInformation = {
-        label: 'Commit lint is running.',
       };
     }
 
