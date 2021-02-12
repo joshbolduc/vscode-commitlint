@@ -38,7 +38,7 @@
     "deploy": "vsce publish --packagePath commitlint-*.vsix",
     "format": "prettier --check '{.vscode,src}/**/*.{json,ts}' '*.{json,md}'",
     "format:fix": "npm run format -- --write",
-    "lint": "eslint src --ext ts",
+    "lint": "eslint src --ext ts --max-warnings 0",
     "lint:fix": "npm run lint -- --fix",
     "release": "standard-version"
   },
