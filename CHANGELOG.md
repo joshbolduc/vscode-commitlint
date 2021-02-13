@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/joshbolduc/vscode-commitlint/compare/v1.0.2...v1.1.0) (2021-02-13)
+
+### Features
+
+- add extension icon ([51772d8](https://github.com/joshbolduc/vscode-commitlint/commit/51772d84fc799a1feb30ccc0d35c07b837ee3634))
+- support linting untitled files ([d2bbc6c](https://github.com/joshbolduc/vscode-commitlint/commit/d2bbc6c4d304c752653b04adc024b3757de4bc14))
+
+### Bug Fixes
+
+- fix status bar icon flickering ([974a00c](https://github.com/joshbolduc/vscode-commitlint/commit/974a00c5308d0a178d4301056828b43d39657ece))
+
 ### [1.0.2](https://github.com/joshbolduc/vscode-commitlint/compare/v1.0.1...v1.0.2) (2021-02-07)
 
 ### Bug Fixes
