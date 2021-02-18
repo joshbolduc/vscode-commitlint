@@ -30,6 +30,19 @@
   "activationEvents": [
     "onLanguage:git-commit"
   ],
+  "contributes": {
+    "configuration": {
+      "title": "commitlint",
+      "properties": {
+        "commitlint.config.file": {
+          "scope": "resource",
+          "type": "string",
+          "default": "",
+          "description": "Path to a commitlint configuration file. Relative paths are resolved based on the workspace root. Leave blank to auto-detect."
+        }
+      }
+    }
+  },
   "main": "./dist/extension.js",
   "scripts": {
     "build": "webpack --config ./webpack.config.js",

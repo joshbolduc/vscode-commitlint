@@ -11,8 +11,14 @@ A VS Code extension that integrates [commitlint](https://github.com/conventional
 - Runs commitlint against your commit message as you write it
 - Reports lint [errors and warnings in the editor](https://code.visualstudio.com/docs/editor/editingevolved#_errors-warnings)
 - Highlights relevant parts of the commit based on the specific issue
-- Autodetects commitlint configuration
+- Autodetects commitlint configuration by default
 - Supports all commitlint rules
+
+## Settings
+
+### `commitlint.config.file`
+
+Path to a custom commitlint configuration file. Relative paths are resolved based on the workspace root. Leave blank to auto-detect.
 
 ## Requirements
 
