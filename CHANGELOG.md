@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/joshbolduc/vscode-commitlint/compare/v1.1.0...v1.2.0) (2021-02-18)
+
+### Features
+
+- support loading custom config via settings ([4c9ba21](https://github.com/joshbolduc/vscode-commitlint/commit/4c9ba21020254841d50f1bd6096f5a8339b87225)), closes [#20](https://github.com/joshbolduc/vscode-commitlint/issues/20)
+
 ## [1.1.0](https://github.com/joshbolduc/vscode-commitlint/compare/v1.0.2...v1.1.0) (2021-02-13)
 
 ### Features
