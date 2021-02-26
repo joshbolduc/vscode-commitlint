@@ -81,7 +81,7 @@
     "webpack-cli": "^4.5.0"
   },
   "dependencies": {
-    "@commitlint/lint": "^11.0.0",
+    "@commitlint/lint": "^12.0.0",
     "@commitlint/load": "^11.0.0",
     "@commitlint/parse": "^11.0.0"
   }
