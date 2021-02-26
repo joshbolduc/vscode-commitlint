@@ -73,7 +73,7 @@
     "eslint-plugin-import": "^2.22.1",
     "prettier": "^2.2.1",
     "standard-changelog": "^2.0.27",
-    "standard-version": "^9.1.0",
+    "standard-version": "^9.1.1",
     "ts-loader": "^8.0.17",
     "typescript": "^4.1.5",
     "vsce": "^1.85.1",
