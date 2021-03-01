@@ -75,7 +75,7 @@
     "standard-changelog": "^2.0.27",
     "standard-version": "^9.1.1",
     "ts-loader": "^8.0.17",
-    "typescript": "^4.1.5",
+    "typescript": "^4.2.2",
     "vsce": "^1.85.1",
     "webpack": "^5.24.2",
     "webpack-cli": "^4.5.0"
