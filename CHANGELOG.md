@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/joshbolduc/vscode-commitlint/compare/v1.2.0...v1.2.1) (2021-04-06)
+
+### Bug Fixes
+
+- use workspace config for non-file schemes ([097237e](https://github.com/joshbolduc/vscode-commitlint/commit/097237eae14569c327e845453d6e9155cc1d4828)), closes [#69](https://github.com/joshbolduc/vscode-commitlint/issues/69)
+
 ## [1.2.0](https://github.com/joshbolduc/vscode-commitlint/compare/v1.1.0...v1.2.0) (2021-02-18)
 
 ### Features
