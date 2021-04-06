@@ -66,10 +66,12 @@ async function getDiagnostics(doc: TextDocument) {
 
   const sanitizedText = getCleanText(text);
 
+  const useWorkspaceConfig = doc.isUntitled || doc.uri.scheme !== 'file';
+
   const [problems, commit] = await Promise.all([
     runLint(
       sanitizedText,
-      doc.isUntitled
+      useWorkspaceConfig
         ? workspace.workspaceFolders?.[0].uri.fsPath
         : doc.uri.fsPath,
     ),
