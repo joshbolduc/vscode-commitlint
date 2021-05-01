@@ -6,3 +6,10 @@ export function getConfigFile() {
     undefined
   );
 }
+
+export function getExtendConfiguration(config: string) {
+  return (
+    workspace.getConfiguration('commitlint.config.extend').get(config) ||
+    undefined
+  );
+}
