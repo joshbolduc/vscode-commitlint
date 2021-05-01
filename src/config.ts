@@ -1,17 +1,28 @@
 import load from '@commitlint/load';
-import { LoadOptions } from '@commitlint/types';
+import { LoadOptions, RuleConfigQuality, RulesConfig } from '@commitlint/types';
 import { workspace } from 'vscode';
-import { getConfigFile } from './settings';
+import { getConfigFile, getExtendConfiguration } from './settings';
 
-export function loadConfig(path: string | undefined) {
-  const configFile = getConfigFile();
+export async function loadConfig(path: string | undefined) {
+  const configOverwriteFile = getConfigFile();
+  const extendsRules = getExtendConfiguration('rules') as Partial<
+    RulesConfig<RuleConfigQuality.Qualified>
+  >;
 
-  const loadOptions: LoadOptions = configFile
+  const loadOptions: LoadOptions = configOverwriteFile
     ? {
         cwd: workspace.workspaceFolders?.[0].uri.fsPath,
-        file: configFile,
+        file: configOverwriteFile,
       }
     : { cwd: path };
 
-  return load({}, loadOptions);
+  const config = await load({}, loadOptions);
+
+  for (const rule in extendsRules) {
+    if (!config.rules?.[rule]) {
+      config.rules[rule] = extendsRules[rule];
+    }
+  }
+
+  return config;
 }

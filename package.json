@@ -39,6 +39,12 @@
           "type": "string",
           "default": "",
           "description": "Path to a commitlint configuration file. Relative paths are resolved based on the workspace root. Leave blank to auto-detect."
+        },
+        "commitlint.config.extend.rules": {
+          "scope": "resource",
+          "type": "object",
+          "default": {},
+          "description": "Commitlint rules which will be extended."
         }
       }
     }
