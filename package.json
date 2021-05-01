@@ -55,6 +55,8 @@
     "watch": "webpack --watch --config ./webpack.config.js",
     "build:production": "NODE_ENV=production webpack --config ./webpack.config.js",
     "package": "npm run build:production && vsce package --githubBranch main",
+    "build:production:windows": "set NODE_ENV=production && webpack --config ./webpack.config.js",
+    "package:windows": "npm run build:production:windows && vsce package --githubBranch main",
     "deploy": "vsce publish --packagePath commitlint-*.vsix",
     "format": "prettier --check '{.vscode,src}/**/*.{json,ts}' '*.{json,md}'",
     "format:fix": "npm run format -- --write",
