@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import load from '@commitlint/load';
 import { LoadOptions, RuleConfigQuality, RulesConfig } from '@commitlint/types';
 import { workspace } from 'vscode';
@@ -8,11 +9,12 @@ export async function loadConfig(path: string | undefined) {
   const extendsRules = getExtendConfiguration('rules') as Partial<
     RulesConfig<RuleConfigQuality.Qualified>
   >;
+  const cwd = workspace.workspaceFolders?.[0].uri.fsPath;
 
   const loadOptions: LoadOptions = configOverwriteFile
     ? {
-        cwd: workspace.workspaceFolders?.[0].uri.fsPath,
-        file: configOverwriteFile,
+        cwd: cwd,
+        file: resolve(cwd || '', configOverwriteFile),
       }
     : { cwd: path };
 
