@@ -1,5 +1,4 @@
 import { StatusBarAlignment, StatusBarItem, window } from 'vscode';
-import { enableCommitLint } from './utils';
 
 const PRIORITY = 0;
 
@@ -76,12 +75,16 @@ function determineStatus(ruleCount?: number, givenStatus = StatusCode.Unknown) {
 }
 
 export function updateStatusBar(ruleCount?: number, status?: StatusCode) {
-  if (!enableCommitLint()) {
-    statusBarItem.hide();
-    return;
+  if (!hideStatusBar()) {
+    const actualStatus = determineStatus(ruleCount, status);
+    updateStatusBarWithInfo(ruleCount ?? 0, actualStatus);
+    statusBarItem.show();
   }
+}
 
-  const actualStatus = determineStatus(ruleCount, status);
-  updateStatusBarWithInfo(ruleCount ?? 0, actualStatus);
-  statusBarItem.show();
+export function hideStatusBar(): boolean {
+  if (window.activeTextEditor?.document?.languageId !== 'git-commit') {
+    statusBarItem.hide();
+    return true;
+  } else return false;
 }

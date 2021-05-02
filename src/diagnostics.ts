@@ -14,7 +14,7 @@ import {
   getCommitRanges,
   parseCommit,
 } from './parse';
-import { isGitCommitDoc } from './utils';
+import { hideStatusBar, updateStatusBar } from './statusBar';
 
 const rulePrefixMapping = {
   header: ['header', 'scope', 'subject', 'type'],
@@ -50,13 +50,11 @@ function createDiagnostic(
 }
 
 async function tryGetDiagnostics(doc: TextDocument) {
-  if (!isGitCommitDoc(doc)) {
-    return [];
-  }
-
+  if (hideStatusBar()) return [];
   try {
     return await getDiagnostics(doc);
   } catch {
+    updateStatusBar();
     return [];
   }
 }

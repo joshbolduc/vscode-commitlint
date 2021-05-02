@@ -1,23 +1,8 @@
-import {
-  DiagnosticCollection,
-  ExtensionContext,
-  languages,
-  TextDocument,
-  window,
-  workspace,
-} from 'vscode';
+import { ExtensionContext, languages, window, workspace } from 'vscode';
 
 import { refreshDiagnostics } from './diagnostics';
 import { initLogger } from './log';
-import { initStatusBar, updateStatusBar } from './statusBar';
-
-function refresh(
-  document: TextDocument,
-  commitLintDiagnostics: DiagnosticCollection,
-) {
-  void refreshDiagnostics(document, commitLintDiagnostics);
-  updateStatusBar();
-}
+import { initStatusBar } from './statusBar';
 
 export function activate(context: ExtensionContext) {
   initLogger();
@@ -29,20 +14,23 @@ export function activate(context: ExtensionContext) {
   context.subscriptions.push(commitLintDiagnostics);
 
   if (window.activeTextEditor) {
-    refresh(window.activeTextEditor.document, commitLintDiagnostics);
+    void refreshDiagnostics(
+      window.activeTextEditor.document,
+      commitLintDiagnostics,
+    );
   }
 
   context.subscriptions.push(
     window.onDidChangeActiveTextEditor((editor) => {
       if (editor) {
-        refresh(editor.document, commitLintDiagnostics);
+        void refreshDiagnostics(editor.document, commitLintDiagnostics);
       }
     }),
   );
 
   context.subscriptions.push(
     workspace.onDidChangeTextDocument((editor) => {
-      refresh(editor.document, commitLintDiagnostics);
+      void refreshDiagnostics(editor.document, commitLintDiagnostics);
     }),
   );
 
