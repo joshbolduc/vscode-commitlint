@@ -24,7 +24,7 @@ Path to a custom commitlint configuration file. Relative paths are resolved base
 
 Commitlint rules which will be extended.
 
-**Example configuration in JSON type:**
+**Example configuration as JSON syntax:**
 
 ```json
 "commitlint.config.extend.rules": {
