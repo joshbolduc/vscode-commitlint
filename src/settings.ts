@@ -1,3 +1,4 @@
+import { QualifiedConfig } from '@commitlint/types/lib/load';
 import { workspace } from 'vscode';
 
 export function getConfigFile() {
@@ -7,9 +8,12 @@ export function getConfigFile() {
   );
 }
 
-export function getExtendConfiguration(config: string) {
+export function getExtendConfiguration<T extends keyof QualifiedConfig>(
+  config: T,
+) {
   return (
-    workspace.getConfiguration('commitlint.config.extend').get(config) ||
-    undefined
+    workspace
+      .getConfiguration('commitlint.config.extend')
+      .get<QualifiedConfig[T]>(config) || undefined
   );
 }

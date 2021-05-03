@@ -1,13 +1,11 @@
 import load from '@commitlint/load';
-import { LoadOptions, RuleConfigQuality, RulesConfig } from '@commitlint/types';
+import { LoadOptions } from '@commitlint/types';
 import { workspace } from 'vscode';
 import { getConfigFile, getExtendConfiguration } from './settings';
 
 export async function loadConfig(path: string | undefined) {
   const configFile = getConfigFile();
-  const extendsRules = getExtendConfiguration('rules') as Partial<
-    RulesConfig<RuleConfigQuality.Qualified>
-  >;
+  const extendsRules = getExtendConfiguration('rules');
 
   const loadOptions: LoadOptions = configFile
     ? {
