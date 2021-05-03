@@ -64,7 +64,7 @@
   "devDependencies": {
     "@commitlint/config-conventional": "^11.0.0",
     "@commitlint/types": "^11.0.0",
-    "@types/node": "^12.19.16",
+    "@types/node": "^15.0.1",
     "@types/vscode": "^1.52.0",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
