@@ -7,6 +7,5 @@ src/**
 **/.prettierrc
 **/.eslintrc.json
 **/commitlint.config.js
-**/webpack.config.js
 **/*.map
 **/*.ts

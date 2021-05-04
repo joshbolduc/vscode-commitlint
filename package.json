@@ -45,15 +45,15 @@
   },
   "main": "./dist/extension.js",
   "scripts": {
-    "build": "webpack --config ./webpack.config.js",
-    "watch": "webpack --watch --config ./webpack.config.js",
-    "build:production": "cross-env NODE_ENV=production webpack --config ./webpack.config.js",
-    "package": "npm run build:production && vsce package --githubBranch main",
+    "build": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --external:@commitlint/lint --external:@commitlint/load --external:@commitlint/parse --format=cjs --platform=node --sourcemap",
+    "watch": "npm run -S build -- --watch",
+    "build:production": "npm run -S build -- --minify",
+    "package": "npm run -S build:production && vsce package --githubBranch main",
     "deploy": "vsce publish --packagePath commitlint-*.vsix",
     "format": "prettier --check '{.vscode,src}/**/*.{json,ts}' '*.{json,md}'",
-    "format:fix": "npm run format -- --write",
+    "format:fix": "npm run -S format -- --write",
     "lint": "eslint src --ext ts --max-warnings 0",
-    "lint:fix": "npm run lint -- --fix",
+    "lint:fix": "npm run -S lint -- --fix",
     "release": "standard-version"
   },
   "standard-version": {
@@ -69,17 +69,15 @@
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "cross-env": "^7.0.3",
+    "esbuild": "^0.11.18",
     "eslint": "^7.25.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-import": "^2.22.1",
     "prettier": "^2.2.1",
     "standard-changelog": "^2.0.27",
     "standard-version": "^9.1.1",
-    "ts-loader": "^8.0.17",
     "typescript": "^4.2.3",
-    "vsce": "^1.85.1",
-    "webpack": "^5.24.2",
-    "webpack-cli": "^4.5.0"
+    "vsce": "^1.85.1"
   },
   "dependencies": {
     "@commitlint/lint": "^11.0.0",
