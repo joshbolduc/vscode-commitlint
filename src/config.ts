@@ -16,11 +16,5 @@ export async function loadConfig(path: string | undefined) {
 
   const config = await load({}, loadOptions);
 
-  for (const rule in extendsRules) {
-    if (!config.rules?.[rule]) {
-      config.rules[rule] = extendsRules[rule];
-    }
-  }
-
-  return config;
+  return { ...config, rules: { ...extendsRules, ...config.rules } };
 }
