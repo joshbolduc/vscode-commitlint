@@ -6,7 +6,7 @@
     {
       "type": "npm",
       "script": "build",
-      "problemMatcher": ["$ts-webpack-watch", "$tslint-webpack-watch"],
+      "problemMatcher": ["$esbuild"],
       "presentation": {
         "reveal": "never"
       },
@@ -18,7 +18,7 @@
     {
       "type": "npm",
       "script": "watch",
-      "problemMatcher": ["$ts-webpack-watch", "$tslint-webpack-watch"],
+      "problemMatcher": ["$esbuild-watch"],
       "isBackground": true,
       "presentation": {
         "reveal": "never"
