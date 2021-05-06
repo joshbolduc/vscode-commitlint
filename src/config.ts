@@ -1,10 +1,11 @@
 import load from '@commitlint/load';
 import { LoadOptions } from '@commitlint/types';
 import { workspace } from 'vscode';
-import { getConfigFile } from './settings';
+import { getConfigFile, getExtendConfiguration } from './settings';
 
-export function loadConfig(path: string | undefined) {
+export async function loadConfig(path: string | undefined) {
   const configFile = getConfigFile();
+  const extendsRules = getExtendConfiguration('rules');
 
   const loadOptions: LoadOptions = configFile
     ? {
@@ -13,5 +14,7 @@ export function loadConfig(path: string | undefined) {
       }
     : { cwd: path };
 
-  return load({}, loadOptions);
+  const config = await load({}, loadOptions);
+
+  return { ...config, rules: { ...extendsRules, ...config.rules } };
 }
