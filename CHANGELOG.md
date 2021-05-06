@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/joshbolduc/vscode-commitlint/compare/v1.2.1...v1.3.0) (2021-05-06)
+
+### Features
+
+- support extend rules ([#90](https://github.com/joshbolduc/vscode-commitlint/issues/90)) ([cb14bb1](https://github.com/joshbolduc/vscode-commitlint/commit/cb14bb1f11e05bf11e92350b56f1a0e02d6b93a4))
+
 ### [1.2.1](https://github.com/joshbolduc/vscode-commitlint/compare/v1.2.0...v1.2.1) (2021-04-06)
 
 ### Bug Fixes
