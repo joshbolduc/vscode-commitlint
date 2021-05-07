@@ -1,0 +1,13 @@
+# Ignore leading comment
+feat(scope): commit subject
+
+# Ignore body comment 1
+
+Commit body text here.
+Commit body text here.
+# Ignore body comment 2
+Commit body text here.
+
+Closes #123
+
+# Ignore trailing comment

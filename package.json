@@ -61,7 +61,8 @@
     "format:fix": "npm run -S format -- --write",
     "lint": "eslint src --ext ts --max-warnings 0",
     "lint:fix": "npm run -S lint -- --fix",
-    "release": "standard-version"
+    "release": "standard-version",
+    "test": "jest"
   },
   "standard-version": {
     "scripts": {
@@ -71,15 +72,19 @@
   "devDependencies": {
     "@commitlint/config-conventional": "^11.0.0",
     "@commitlint/types": "^11.0.0",
+    "@types/jest": "^26.0.23",
     "@types/node": "^12.19.16",
     "@types/vscode": "^1.52.0",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "cross-env": "^7.0.3",
     "esbuild": "^0.11.18",
+    "esbuild-jest": "^0.5.0",
     "eslint": "^7.25.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.22.1",
+    "jest": "^26.6.3",
+    "jest-environment-node": "^26.6.2",
     "prettier": "^2.2.1",
     "standard-changelog": "^2.0.27",
     "standard-version": "^9.3.0",
