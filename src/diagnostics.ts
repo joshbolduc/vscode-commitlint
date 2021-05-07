@@ -8,12 +8,7 @@ import {
   workspace,
 } from 'vscode';
 import { runLint } from './lint';
-import {
-  getAdjustedRanges,
-  getCleanText,
-  getCommitRanges,
-  parseCommit,
-} from './parse';
+import { parseCommit } from './parse';
 import { isGitCommitDoc } from './utils';
 
 const rulePrefixMapping = {
@@ -64,22 +59,16 @@ async function tryGetDiagnostics(doc: TextDocument) {
 async function getDiagnostics(doc: TextDocument) {
   const text = doc.getText();
 
-  const sanitizedText = getCleanText(text);
-
   const useWorkspaceConfig = doc.isUntitled || doc.uri.scheme !== 'file';
 
-  const [problems, commit] = await Promise.all([
-    runLint(
-      sanitizedText,
-      useWorkspaceConfig
-        ? workspace.workspaceFolders?.[0].uri.fsPath
-        : doc.uri.fsPath,
-    ),
-    parseCommit(sanitizedText),
-  ]);
+  const { ranges, sanitizedText } = await parseCommit(text);
 
-  const prelimRanges = getCommitRanges(commit);
-  const ranges = getAdjustedRanges(prelimRanges, text);
+  const problems = await runLint(
+    sanitizedText,
+    useWorkspaceConfig
+      ? workspace.workspaceFolders?.[0].uri.fsPath
+      : doc.uri.fsPath,
+  );
 
   const { errors = [], warnings = [] } = problems ?? {};
 

@@ -7,10 +7,6 @@ type Range = [start: number, end: number];
 
 type SectionRanges = Partial<Record<KnownSection, Range>>;
 
-export async function parseCommit(text: string) {
-  return parse(text);
-}
-
 function isCommentLine(line: string) {
   // TODO: this is actually configurable per git config. see:
   // https://stackoverflow.com/questions/22936252/escape-comment-character-in-git-commit-message
@@ -25,68 +21,12 @@ function splitCommit(text: string) {
   return text.split(LINE_BREAK);
 }
 
-export function getCleanText(text: string) {
-  const lines = splitCommit(text);
-
-  const sanitizedText = lines
-    .filter((line) => !isCommentLine(line))
-    .join(LINE_BREAK);
-
-  return sanitizedText;
-}
-
 interface Offset {
   index: number;
   length: number;
 }
 
-export function getAdjustedRanges(ranges: SectionRanges, originalText: string) {
-  const { offsets } = splitCommit(originalText).reduce<{
-    offsets: Offset[];
-    index: number;
-  }>(
-    (acc, cur) => {
-      const lineLength = cur.length + LINE_BREAK.length;
-
-      if (isCommentLine(cur)) {
-        acc.offsets.push({
-          index: acc.index,
-          length: lineLength,
-        });
-      } else {
-        acc.index += lineLength;
-      }
-
-      return acc;
-    },
-    { offsets: [], index: 0 },
-  );
-
-  return Object.entries(ranges).reduce<SectionRanges>(
-    (acc, [section, sectionRange]) => {
-      if (sectionRange) {
-        const [start, end] = sectionRange;
-
-        const adjustedRange = offsets.reduce<Range>(
-          ([accStart, accEnd], { index, length }) => {
-            const startOffset = index <= start ? length : 0;
-            const endOffset = index < end ? length : 0;
-
-            return [accStart + startOffset, accEnd + endOffset];
-          },
-          [start, end],
-        );
-
-        acc[section as keyof typeof ranges] = adjustedRange;
-      }
-
-      return acc;
-    },
-    {},
-  );
-}
-
-export function getCommitRanges(commit: Commit) {
+function getCommitRanges(commit: Commit) {
   const text = commit.raw;
 
   const headerStart = text.indexOf(commit.header);
@@ -122,4 +62,78 @@ export function getCommitRanges(commit: Commit) {
   }
 
   return ranges;
+}
+
+function isValidLine(line: string) {
+  return !isCommentLine(line) && line !== '';
+}
+
+export async function parseCommit(text: string) {
+  const lines = splitCommit(text);
+
+  const firstContentLine = lines.findIndex(isValidLine);
+  const lastContentLine = lines.reduceRight((prev, cur, i) => {
+    if (prev === i && !isValidLine(cur)) {
+      return i - 1;
+    }
+
+    return prev;
+  }, lines.length - 1);
+
+  const sanitizedText = lines
+    .slice(firstContentLine, lastContentLine + 1)
+    .filter((line) => !isCommentLine(line))
+    .join(LINE_BREAK);
+
+  const commit = await parse(sanitizedText);
+  const originalRanges = getCommitRanges(commit);
+
+  const { offsets } = lines.reduce<{
+    offsets: Offset[];
+    index: number;
+  }>(
+    (acc, cur, i) => {
+      const lineLength = cur.length + LINE_BREAK.length;
+
+      const shouldIncludeLine =
+        i >= firstContentLine && i <= lastContentLine && !isCommentLine(cur);
+
+      if (shouldIncludeLine) {
+        acc.index += lineLength;
+      } else {
+        acc.offsets.push({
+          index: acc.index,
+          length: lineLength,
+        });
+      }
+
+      return acc;
+    },
+    { offsets: [], index: 0 },
+  );
+
+  const ranges = Object.entries(originalRanges).reduce<SectionRanges>(
+    (acc, [section, sectionRange]) => {
+      if (sectionRange) {
+        const [start, end] = sectionRange;
+
+        const adjustedRange = offsets.reduce<Range>(
+          ([accStart, accEnd], { index, length }) => {
+            const startOffset = index <= start ? length : 0;
+            const endOffset = index < end ? length : 0;
+
+            return [accStart + startOffset, accEnd + endOffset];
+          },
+          [start, end],
+        );
+
+        acc[section as keyof typeof ranges] = adjustedRange;
+      }
+
+      return acc;
+    },
+    {},
+  );
+
+  return { ranges, sanitizedText };
 }
