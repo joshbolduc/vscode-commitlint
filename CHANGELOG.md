@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.1](https://github.com/joshbolduc/vscode-commitlint/compare/v1.3.0...v1.3.1) (2021-05-07)
+
+### Bug Fixes
+
+- change node version target ([3d764e4](https://github.com/joshbolduc/vscode-commitlint/commit/3d764e4660e739ac8bfcab80c3691d74b7f09e78))
+- disable extension in untrusted workspaces ([ddc9e5c](https://github.com/joshbolduc/vscode-commitlint/commit/ddc9e5cdafe7a449eae7e0b76fb0cd7d54894c59)), closes [#109](https://github.com/joshbolduc/vscode-commitlint/issues/109)
+- trim leading newlines before parsing ([c6456f2](https://github.com/joshbolduc/vscode-commitlint/commit/c6456f2b185c4ccb6d6eb70f79a618b92002aead)), closes [#108](https://github.com/joshbolduc/vscode-commitlint/issues/108)
+
 ## [1.3.0](https://github.com/joshbolduc/vscode-commitlint/compare/v1.2.1...v1.3.0) (2021-05-06)
 
 ### Features
