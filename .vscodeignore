@@ -1,6 +1,8 @@
 .github/**
 .vscode/**
+coverage/**
 src/**
+test/**
 .gitignore
 **/tsconfig.json
 **/.prettierignore

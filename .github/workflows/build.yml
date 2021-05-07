@@ -25,6 +25,8 @@ jobs:
         with:
           name: vsix
           path: '*.vsix'
+      - name: Test
+        run: npm run test -- --coverage
       - name: Lint
         run: npm run lint
       - name: Format
