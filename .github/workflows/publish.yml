@@ -43,7 +43,7 @@ jobs:
           CHANGELOG="${CHANGELOG//$'\r'/'%0D'}"
           echo "::set-output name=changelog::$(echo "$CHANGELOG")"
       - name: Create release
-        uses: svenstaro/upload-release-action@v2
+        uses: svenstaro/upload-release-action@2.2.1
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: '*.vsix'
