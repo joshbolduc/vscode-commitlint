@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.2](https://github.com/joshbolduc/vscode-commitlint/compare/v1.3.1...v1.3.2) (2021-05-12)
+
+### Bug Fixes
+
+- support config file as absolute path ([#89](https://github.com/joshbolduc/vscode-commitlint/issues/89)) ([2a6284a](https://github.com/joshbolduc/vscode-commitlint/commit/2a6284a3f1d6326e52d5cb45e577d232ad842ded))
+
 ### [1.3.1](https://github.com/joshbolduc/vscode-commitlint/compare/v1.3.0...v1.3.1) (2021-05-07)
 
 ### Bug Fixes
