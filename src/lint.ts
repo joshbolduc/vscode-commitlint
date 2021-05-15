@@ -1,6 +1,6 @@
-import lint from '@commitlint/lint';
 import { ParserOptions } from '@commitlint/types';
 import { loadConfig } from './config';
+import { importCommitlintLint } from './loadLibrary';
 import { log } from './log';
 import { StatusCode, updateStatusBar } from './statusBar';
 
@@ -36,6 +36,8 @@ export async function runLint(text: string, path: string | undefined) {
     }:\n${JSON.stringify(config.rules)}`,
   );
   updateStatusBar(ruleCount);
+
+  const lint = importCommitlintLint(path);
 
   return {
     problems: await lint(

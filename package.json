@@ -57,6 +57,12 @@
           "type": "boolean",
           "default": false,
           "description": "Whether to enable logging to the output panel."
+        },
+        "commitlint.preferBundledLibraries": {
+          "scope": "window",
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to prefer using commitlint libraries bundled with the extension over locally installed versions."
         }
       }
     },

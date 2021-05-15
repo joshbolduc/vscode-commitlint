@@ -52,6 +52,10 @@ Commitlint rules which will be extended.
 
 Whether to enable logging to the output panel.
 
+### `commitlint.preferBundledLibraries`
+
+Whether to prefer using commitlint libraries bundled with the extension over locally installed versions.
+
 ## Requirements
 
 To make the most out of this extension, you'll probably want to configure commitlint in your project and use VS Code as your git commit editor:

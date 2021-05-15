@@ -1,8 +1,14 @@
 import { readFileSync } from 'fs';
-import { join } from 'path';
+import { join, resolve } from 'path';
+import { fixturesPath, testLibRootPath } from '../test/util';
 import { parseCommit } from './parse';
 
+jest.mock('./log');
+jest.mock('./settings');
+
 describe('parse', () => {
+  const versions = [11, 12, 13];
+
   const fixtures = [
     'commit-all-ranges.txt',
     'commit-leading-comment.txt',
@@ -10,13 +16,15 @@ describe('parse', () => {
     'commit-trailing-comment.txt',
   ];
 
-  fixtures.forEach((fixture) => {
-    it(`parses ${fixture}`, async () => {
-      const contents = readFileSync(
-        join(__dirname, '..', 'test', 'fixtures', fixture),
-      ).toString();
+  versions.forEach((version) => {
+    const libPath = resolve(testLibRootPath, `v${version}`);
 
-      expect(await parseCommit(contents)).toMatchSnapshot();
+    fixtures.forEach((fixture) => {
+      it(`parses ${fixture} using v${version}`, async () => {
+        const contents = readFileSync(join(fixturesPath, fixture)).toString();
+
+        expect(await parseCommit(contents, libPath)).toMatchSnapshot();
+      });
     });
   });
 });

@@ -71,14 +71,13 @@ async function getDiagnostics(doc: TextDocument) {
 
   const useWorkspaceConfig = doc.isUntitled || doc.uri.scheme !== 'file';
 
-  const { ranges, sanitizedText } = await parseCommit(text);
+  const path = useWorkspaceConfig
+    ? workspace.workspaceFolders?.[0].uri.fsPath
+    : doc.uri.fsPath;
 
-  const lintResult = await runLint(
-    sanitizedText,
-    useWorkspaceConfig
-      ? workspace.workspaceFolders?.[0].uri.fsPath
-      : doc.uri.fsPath,
-  );
+  const { ranges, sanitizedText } = await parseCommit(text, path);
+
+  const lintResult = await runLint(sanitizedText, path);
 
   if (!lintResult) {
     return;

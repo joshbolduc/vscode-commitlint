@@ -1,5 +1,5 @@
-import parse from '@commitlint/parse';
 import { Commit } from '@commitlint/types';
+import { importCommitlintParse } from './loadLibrary';
 
 type KnownSection = 'header' | 'body' | 'footer' | 'scope' | 'subject' | 'type';
 
@@ -68,7 +68,7 @@ function isValidLine(line: string) {
   return !isCommentLine(line) && line !== '';
 }
 
-export async function parseCommit(text: string) {
+export async function parseCommit(text: string, path: string | undefined) {
   const lines = splitCommit(text);
 
   const firstContentLine = lines.findIndex(isValidLine);
@@ -84,6 +84,8 @@ export async function parseCommit(text: string) {
     .slice(firstContentLine, lastContentLine + 1)
     .filter((line) => !isCommentLine(line))
     .join(LINE_BREAK);
+
+  const parse = importCommitlintParse(path);
 
   const commit = await parse(sanitizedText);
   const originalRanges = getCommitRanges(commit);
