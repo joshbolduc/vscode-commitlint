@@ -14,8 +14,9 @@ async function tryLoadConfig(path: string | undefined) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/restrict-template-expressions
         `Couldn't load commitlint config at ${e.path} (${e.code})`,
       );
-    } else getLogger().appendLine(`Load config error stack:\n${e as string}`);
-    updateStatusBar(0, StatusCode.ConfigLoadFailed);
+    } else {
+      getLogger().appendLine(`Load config error stack:\n${e as string}`);
+    }
     return undefined;
   }
 }
@@ -24,6 +25,7 @@ export async function runLint(text: string, path: string | undefined) {
   const config = await tryLoadConfig(path);
 
   if (!config) {
+    updateStatusBar(0, StatusCode.ConfigLoadFailed);
     return undefined;
   }
 
