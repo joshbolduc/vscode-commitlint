@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/joshbolduc/vscode-commitlint/compare/v1.3.2...v1.4.0) (2021-05-29)
+
+### Features
+
+- contribute commitlint config json schema ([1e1e0c1](https://github.com/joshbolduc/vscode-commitlint/commit/1e1e0c112122d3b6b8d70c77168469bd841f3e84))
+
+### Bug Fixes
+
+- fix incorrect status bar info ([59557e1](https://github.com/joshbolduc/vscode-commitlint/commit/59557e1254262a45862af3620404ef2e305187fa))
+
 ### [1.3.2](https://github.com/joshbolduc/vscode-commitlint/compare/v1.3.1...v1.3.2) (2021-05-12)
 
 ### Bug Fixes

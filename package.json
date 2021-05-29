@@ -3,7 +3,7 @@
   "displayName": "commitlint",
   "description": "Integrate commitlint into the VS Code commit editor",
   "publisher": "joshbolduc",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "icon": "icon.png",
   "repository": {
     "type": "git",
