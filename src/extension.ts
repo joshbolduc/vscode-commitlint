@@ -23,9 +23,8 @@ export function activate(context: ExtensionContext) {
   initLogger();
   initStatusBar();
 
-  const commitLintDiagnostics = languages.createDiagnosticCollection(
-    'commitlint',
-  );
+  const commitLintDiagnostics =
+    languages.createDiagnosticCollection('commitlint');
   context.subscriptions.push(commitLintDiagnostics);
 
   if (window.activeTextEditor) {
