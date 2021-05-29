@@ -9,7 +9,6 @@ module.exports = {
   coverageProvider: 'v8',
   coverageReporters: ['text'],
   roots: ['src'],
-  testEnvironment: 'node',
   transform: {
     '^.+\\.tsx?$': [
       'esbuild-jest',
