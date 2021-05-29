@@ -53,7 +53,17 @@
           "description": "Commitlint rules which will be extended."
         }
       }
-    }
+    },
+    "jsonValidation": [
+      {
+        "fileMatch": ".commitlintrc.json",
+        "url": "https://json.schemastore.org/commitlintrc.json"
+      },
+      {
+        "fileMatch": "package.json",
+        "url": "./package-json-schema.json"
+      }
+    ]
   },
   "main": "./dist/extension.js",
   "scripts": {

@@ -13,6 +13,7 @@ A VS Code extension that integrates [commitlint](https://github.com/conventional
 - Highlights relevant parts of the commit based on the specific issue
 - Auto detects commitlint configuration by default
 - Supports [all commitlint rules](https://commitlint.js.org/#/reference-rules?id=available-rules)
+- Adds autocomplete support to `package.json` and `.commitlintrc.json` based on the [configuration schema](https://json.schemastore.org/commitlintrc.json)
 
 ## Settings
 
