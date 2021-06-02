@@ -103,7 +103,7 @@
     "standard-changelog": "^2.0.27",
     "standard-version": "^9.3.0",
     "typescript": "^4.3.2",
-    "vsce": "^1.88.0"
+    "vsce": "^1.91.0"
   },
   "dependencies": {
     "@commitlint/lint": "^11.0.0",
