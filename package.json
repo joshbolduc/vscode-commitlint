@@ -106,7 +106,7 @@
     "vsce": "^1.88.0"
   },
   "dependencies": {
-    "@commitlint/lint": "^11.0.0",
+    "@commitlint/lint": "^12.1.4",
     "@commitlint/load": "^11.0.0",
     "@commitlint/parse": "^11.0.0"
   }
