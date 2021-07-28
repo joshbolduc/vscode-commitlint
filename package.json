@@ -51,6 +51,12 @@
           "type": "object",
           "default": {},
           "description": "Commitlint rules which will be extended."
+        },
+        "commitlint.log.enabled": {
+          "scope": "window",
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to enable logging to the output panel."
         }
       }
     },

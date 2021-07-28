@@ -2,7 +2,7 @@ import { dirname, isAbsolute, relative } from 'path';
 import load from '@commitlint/load';
 import { LoadOptions } from '@commitlint/types';
 import { workspace } from 'vscode';
-import { getLogger } from './log';
+import { log } from './log';
 import { getConfigFile, getExtendConfiguration } from './settings';
 
 export async function loadConfig(path: string | undefined) {
@@ -24,7 +24,7 @@ export async function loadConfig(path: string | undefined) {
     : { cwd: path };
 
   const config = await load({}, loadOptions);
-  getLogger().appendLine(
+  log(
     `[${new Date().toLocaleString()}] loadOptions: ${JSON.stringify(
       loadOptions,
     )}`,

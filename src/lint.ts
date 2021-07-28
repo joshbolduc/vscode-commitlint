@@ -1,7 +1,7 @@
 import lint from '@commitlint/lint';
 import { ParserOptions } from '@commitlint/types';
 import { loadConfig } from './config';
-import { getLogger } from './log';
+import { log } from './log';
 import { StatusCode, updateStatusBar } from './statusBar';
 
 async function tryLoadConfig(path: string | undefined) {
@@ -10,12 +10,12 @@ async function tryLoadConfig(path: string | undefined) {
   } catch (e) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (e.code === 'ENOENT') {
-      getLogger().appendLine(
+      log(
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/restrict-template-expressions
         `Couldn't load commitlint config at ${e.path} (${e.code})`,
       );
     } else {
-      getLogger().appendLine(`Load config error stack:\n${e as string}`);
+      log(`Load config error stack:\n${e as string}`);
     }
     return undefined;
   }
@@ -30,7 +30,7 @@ export async function runLint(text: string, path: string | undefined) {
   }
 
   const ruleCount = Object.keys(config.rules).length;
-  getLogger().appendLine(
+  log(
     `[${new Date().toLocaleString()}] ${ruleCount} commitlint ${
       ruleCount === 1 ? 'rule' : 'rules'
     }:\n${JSON.stringify(config.rules)}`,
