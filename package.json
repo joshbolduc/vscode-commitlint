@@ -108,6 +108,6 @@
   "dependencies": {
     "@commitlint/lint": "^11.0.0",
     "@commitlint/load": "^11.0.0",
-    "@commitlint/parse": "^11.0.0"
+    "@commitlint/parse": "^13.1.0"
   }
 }
