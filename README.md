@@ -48,6 +48,10 @@ Commitlint rules which will be extended.
 }
 ```
 
+### `commitlint.log.enabled`
+
+Whether to enable logging to the output panel.
+
 ## Requirements
 
 To make the most out of this extension, you'll probably want to configure commitlint in your project and use VS Code as your git commit editor:

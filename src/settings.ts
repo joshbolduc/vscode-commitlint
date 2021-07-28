@@ -17,3 +17,10 @@ export function getExtendConfiguration<T extends keyof QualifiedConfig>(
       .get<QualifiedConfig[T]>(config) || undefined
   );
 }
+
+export function getLogEnabled() {
+  return (
+    workspace.getConfiguration('commitlint.log').get<boolean>('enabled') ||
+    false
+  );
+}
