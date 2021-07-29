@@ -26,6 +26,7 @@ jobs:
           name: vsix
           path: '*.vsix'
       - name: Test
+        run: npm run test:prep
         run: npm run test -- --coverage
       - name: Typecheck
         run: npm run typecheck
