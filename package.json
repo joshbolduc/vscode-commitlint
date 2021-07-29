@@ -89,7 +89,9 @@
     "lint": "eslint src --ext ts --max-warnings 0",
     "lint:fix": "npm run -S lint -- --fix",
     "release": "standard-version",
-    "test": "jest"
+    "test": "jest",
+    "typecheck": "tsc --build",
+    "typecheck:watch": "npm run -S typecheck -- --watch"
   },
   "standard-version": {
     "scripts": {

@@ -24,6 +24,8 @@ jobs:
         with:
           name: vsix
           path: '*.vsix'
+      - name: Typecheck
+        run: npm run typecheck
       - name: Lint
         run: npm run lint
       - name: Format

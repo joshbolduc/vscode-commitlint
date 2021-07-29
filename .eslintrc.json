@@ -17,7 +17,16 @@
   ],
   "rules": {
     "@typescript-eslint/explicit-module-boundary-types": "off",
+    "curly": ["error", "all"],
     "import/order": ["warn", { "alphabetize": { "order": "asc" } }],
+    "object-shorthand": [
+      "warn",
+      "always",
+      {
+        "ignoreConstructors": false,
+        "avoidQuotes": true
+      }
+    ],
     "sort-imports": [
       "warn",
       { "ignoreCase": true, "ignoreDeclarationSort": true }
