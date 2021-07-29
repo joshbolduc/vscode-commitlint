@@ -37,11 +37,14 @@ export async function runLint(text: string, path: string | undefined) {
   );
   updateStatusBar(ruleCount);
 
-  return lint(
-    text,
-    config.rules,
-    config.parserPreset
-      ? { parserOpts: config.parserPreset.parserOpts as ParserOptions }
-      : {},
-  );
+  return {
+    problems: await lint(
+      text,
+      config.rules,
+      config.parserPreset
+        ? { parserOpts: config.parserPreset.parserOpts as ParserOptions }
+        : {},
+    ),
+    helpUrl: config.helpUrl,
+  };
 }

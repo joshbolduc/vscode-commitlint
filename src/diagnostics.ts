@@ -5,6 +5,7 @@ import {
   DiagnosticSeverity,
   Range,
   TextDocument,
+  Uri,
   workspace,
 } from 'vscode';
 import { runLint } from './lint';
@@ -30,6 +31,7 @@ function createDiagnostic(
   doc: TextDocument,
   result: LintRuleOutcome,
   range: readonly [number, number],
+  helpUrl: string,
 ) {
   const [startIndex, endIndex] = range;
 
@@ -38,7 +40,15 @@ function createDiagnostic(
     result.message,
     result.level === 2 ? DiagnosticSeverity.Error : DiagnosticSeverity.Warning,
   );
-  diagnostic.code = result.name;
+
+  let target: Uri | undefined;
+  try {
+    target = Uri.parse(helpUrl, true);
+  } catch {
+    // malformed user-provided data
+  }
+
+  diagnostic.code = target ? { value: result.name, target } : result.name;
   diagnostic.source = 'commitlint';
 
   return diagnostic;
@@ -63,14 +73,21 @@ async function getDiagnostics(doc: TextDocument) {
 
   const { ranges, sanitizedText } = await parseCommit(text);
 
-  const problems = await runLint(
+  const lintResult = await runLint(
     sanitizedText,
     useWorkspaceConfig
       ? workspace.workspaceFolders?.[0].uri.fsPath
       : doc.uri.fsPath,
   );
 
-  const { errors = [], warnings = [] } = problems ?? {};
+  if (!lintResult) {
+    return;
+  }
+
+  const {
+    problems: { errors = [], warnings = [] },
+    helpUrl,
+  } = lintResult;
 
   return [...errors, ...warnings].map((issue) => {
     const section = mapRuleToSection(issue.name);
@@ -80,7 +97,7 @@ async function getDiagnostics(doc: TextDocument) {
     const range = ranges[prefix as keyof typeof ranges] ??
       ranges[section as keyof typeof ranges] ?? [0, text.length];
 
-    return createDiagnostic(doc, issue, range);
+    return createDiagnostic(doc, issue, range, helpUrl);
   });
 }
 
