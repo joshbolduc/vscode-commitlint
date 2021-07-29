@@ -1,0 +1,8 @@
+{
+  "name": "commitlint-test-v13",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "commitlint": "^13.0.0"
+  }
+}

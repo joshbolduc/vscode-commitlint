@@ -24,3 +24,11 @@ export function getLogEnabled() {
     false
   );
 }
+
+export function getPreferBundledLibraries() {
+  return (
+    workspace
+      .getConfiguration('commitlint')
+      .get<boolean>('preferBundledLibraries') || false
+  );
+}
