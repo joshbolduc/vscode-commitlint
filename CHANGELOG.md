@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/joshbolduc/vscode-commitlint/compare/v1.4.0...v2.0.0) (2021-07-29)
+
+### ⚠ BREAKING CHANGES
+
+- The extension now attempts to use locally installed
+  copies of commitlint libraries to load commitlint configurations, parse
+  commit messages, and apply linting rules. If locally installed libraries
+  are not available, versions of those libraries bundled with the
+  extension will be used instead, as they were previously.
+- The bundled version of commitlint is now version 13
+  (updated from 11).
+
+### Features
+
+- add setting to enable/disable logging ([9535550](https://github.com/joshbolduc/vscode-commitlint/commit/953555008d7f0df4d955c76c89c6978f613e04dc))
+- dynamically load local commitlint ([10631dc](https://github.com/joshbolduc/vscode-commitlint/commit/10631dc093b6a5518f0452cc29d93ebfacba59db)), closes [#113](https://github.com/joshbolduc/vscode-commitlint/issues/113)
+- surface helpUrl from config via diagnostics ([f52617a](https://github.com/joshbolduc/vscode-commitlint/commit/f52617ad75539bc9c809c8a548f155771eea9dcb))
+- update commitlint to v13 ([a53bf62](https://github.com/joshbolduc/vscode-commitlint/commit/a53bf62dd13d6473aacfef45364a3e6a575175ff))
+
 ## [1.4.0](https://github.com/joshbolduc/vscode-commitlint/compare/v1.3.2...v1.4.0) (2021-05-29)
 
 ### Features
