@@ -90,6 +90,7 @@
     "lint:fix": "npm run -S lint -- --fix",
     "release": "standard-version",
     "test": "jest",
+    "test:prep": "pushd test/commitlint/v11 && npm ci && popd && pushd test/commitlint/v12 && npm ci && popd && pushd test/commitlint/v13 && npm ci && popd",
     "typecheck": "tsc --build",
     "typecheck:watch": "npm run -S typecheck -- --watch"
   },
