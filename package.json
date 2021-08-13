@@ -102,7 +102,7 @@
   "devDependencies": {
     "@commitlint/config-conventional": "^13.1.0",
     "@commitlint/types": "^13.1.0",
-    "@types/jest": "^26.0.24",
+    "@types/jest": "^27.0.1",
     "@types/node": "^12.19.16",
     "@types/vscode": "^1.52.0",
     "@typescript-eslint/eslint-plugin": "^4.28.5",
