@@ -80,19 +80,19 @@
   "main": "./dist/extension.js",
   "scripts": {
     "build": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --external:@commitlint/lint --external:@commitlint/load --external:@commitlint/parse --format=cjs --platform=node --target=node12.18.3 --sourcemap",
-    "watch": "npm run -S build -- --watch",
-    "build:production": "npm run -S build -- --minify",
-    "package": "npm run -S build:production && vsce package --githubBranch main",
+    "watch": "npm run -s build -- --watch",
+    "build:production": "npm run -s build -- --minify",
+    "package": "npm run -s build:production && vsce package --githubBranch main",
     "deploy": "vsce publish --packagePath commitlint-*.vsix",
     "format": "prettier --check '{.vscode,src}/**/*.{json,ts}' '*.{json,md}'",
-    "format:fix": "npm run -S format -- --write",
+    "format:fix": "npm run -s format -- --write",
     "lint": "eslint src --ext ts --max-warnings 0",
-    "lint:fix": "npm run -S lint -- --fix",
+    "lint:fix": "npm run -s lint -- --fix",
     "release": "standard-version",
     "test": "jest",
     "test:prep": "node -r ts-eager/register ./scripts/testPrep.ts",
     "typecheck": "tsc --build",
-    "typecheck:watch": "npm run -S typecheck -- --watch"
+    "typecheck:watch": "npm run -s typecheck -- --watch"
   },
   "standard-version": {
     "scripts": {
