@@ -3,7 +3,7 @@
 /**
  * @type import('@jest/types').Config.InitialOptions
  */
-module.exports = {
+const config = {
   clearMocks: true,
   coverageDirectory: 'coverage',
   coverageProvider: 'v8',
@@ -18,3 +18,5 @@ module.exports = {
     ],
   },
 };
+
+module.exports = config;
