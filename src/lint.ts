@@ -1,5 +1,6 @@
 import { ParserOptions } from '@commitlint/types';
 import { loadConfig } from './config';
+import { isNodeExceptionCode } from './isNodeExceptionCode';
 import { importCommitlintLint } from './loadLibrary';
 import { log } from './log';
 import { StatusCode, updateStatusBar } from './statusBar';
@@ -8,15 +9,10 @@ async function tryLoadConfig(path: string | undefined) {
   try {
     return await loadConfig(path);
   } catch (e) {
-    if (
-      e &&
-      typeof e === 'object' &&
-      (e as NodeJS.ErrnoException).code === 'ENOENT'
-    ) {
-      const { path, code } = e as NodeJS.ErrnoException;
+    if (isNodeExceptionCode(e, 'ENOENT')) {
       log(
-        `Couldn't load commitlint config at ${path ?? '(unknown path)'} (${
-          code ?? 'unknown code'
+        `Couldn't load commitlint config at ${e.path ?? '(unknown path)'} (${
+          e.code
         })`,
       );
     } else {
