@@ -9,7 +9,8 @@
     "strict": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "importsNotUsedAsValues": "error"
   },
   "exclude": ["node_modules"]
 }

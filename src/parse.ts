@@ -1,4 +1,4 @@
-import { Commit } from '@commitlint/types';
+import type { Commit } from '@commitlint/types';
 import { importCommitlintParse } from './loadLibrary';
 
 type KnownSection = 'header' | 'body' | 'footer' | 'scope' | 'subject' | 'type';
