@@ -26,7 +26,7 @@ const getLoadOptions = (
 export async function loadConfig(path: string | undefined) {
   const configOverwriteFile = getConfigFile();
   const extendsRules = getExtendConfiguration('rules');
-  const workspacePath = workspace.workspaceFolders?.[0].uri.fsPath;
+  const workspacePath = workspace.workspaceFolders?.[0]?.uri.fsPath;
 
   const loadOptions: LoadOptions = getLoadOptions(
     configOverwriteFile,

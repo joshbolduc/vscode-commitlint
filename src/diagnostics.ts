@@ -72,7 +72,7 @@ async function getDiagnostics(doc: TextDocument) {
   const useWorkspaceConfig = doc.isUntitled || doc.uri.scheme !== 'file';
 
   const path = useWorkspaceConfig
-    ? workspace.workspaceFolders?.[0].uri.fsPath
+    ? workspace.workspaceFolders?.[0]?.uri.fsPath
     : doc.uri.fsPath;
 
   const { ranges, sanitizedText } = await parseCommit(text, path);
