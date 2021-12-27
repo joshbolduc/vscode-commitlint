@@ -1,4 +1,4 @@
-import { QualifiedConfig } from '@commitlint/types';
+import type { QualifiedConfig } from '@commitlint/types';
 import { workspace } from 'vscode';
 
 export function getConfigFile() {

@@ -1,5 +1,5 @@
 import { basename, dirname, isAbsolute } from 'path';
-import { LoadOptions } from '@commitlint/types';
+import type { LoadOptions } from '@commitlint/types';
 import { workspace } from 'vscode';
 import { importCommitlintLoad } from './loadLibrary';
 import { log } from './log';

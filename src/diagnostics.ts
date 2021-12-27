@@ -1,4 +1,4 @@
-import { LintRuleOutcome } from '@commitlint/types';
+import type { LintRuleOutcome } from '@commitlint/types';
 import {
   Diagnostic,
   DiagnosticCollection,

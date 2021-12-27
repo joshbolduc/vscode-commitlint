@@ -1,4 +1,4 @@
-import { ParserOptions } from '@commitlint/types';
+import type { ParserOptions } from '@commitlint/types';
 import { loadConfig } from './config';
 import { isNodeExceptionCode } from './isNodeExceptionCode';
 import { importCommitlintLint } from './loadLibrary';
