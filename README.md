@@ -15,6 +15,10 @@ A VS Code extension that integrates [commitlint](https://github.com/conventional
 - Supports [all commitlint rules](https://commitlint.js.org/#/reference-rules?id=available-rules)
 - Adds autocomplete support to `package.json` and `.commitlintrc.json` based on the [configuration schema](https://json.schemastore.org/commitlintrc.json)
 
+## Requirements
+
+This extension assumes you use [VS Code as your Git editor](https://code.visualstudio.com/docs/editor/versioncontrol#_vs-code-as-git-editor) and have [configured commitlint in your project](https://commitlint.js.org/#/?id=getting-started).
+
 ## Settings
 
 ### `commitlint.config.file`
@@ -55,10 +59,3 @@ Whether to enable logging to the output panel.
 ### `commitlint.preferBundledLibraries`
 
 Whether to prefer using commitlint libraries bundled with the extension over locally installed versions.
-
-## Requirements
-
-To make the most out of this extension, you'll probably want to configure commitlint in your project and use VS Code as your git commit editor:
-
-- [Getting started with commitlint](https://commitlint.js.org/#/?id=getting-started)
-- [VS Code as Git editor](https://code.visualstudio.com/docs/editor/versioncontrol#_vs-code-as-git-editor)
