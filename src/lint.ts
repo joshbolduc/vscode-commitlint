@@ -1,5 +1,6 @@
 import { ParserOptions } from '@commitlint/types';
 import { loadConfig } from './config';
+import { isNodeExceptionCode } from './isNodeExceptionCode';
 import { importCommitlintLint } from './loadLibrary';
 import { log } from './log';
 import { StatusCode, updateStatusBar } from './statusBar';
@@ -8,11 +9,11 @@ async function tryLoadConfig(path: string | undefined) {
   try {
     return await loadConfig(path);
   } catch (e) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    if (e.code === 'ENOENT') {
+    if (isNodeExceptionCode(e, 'ENOENT')) {
       log(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/restrict-template-expressions
-        `Couldn't load commitlint config at ${e.path} (${e.code})`,
+        `Couldn't load commitlint config at ${e.path ?? '(unknown path)'} (${
+          e.code
+        })`,
       );
     } else {
       log(`Load config error stack:\n${e as string}`);

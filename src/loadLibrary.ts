@@ -1,3 +1,4 @@
+import { isNodeExceptionCode } from './isNodeExceptionCode';
 import { log } from './log';
 import { getPreferBundledLibraries } from './settings';
 
@@ -32,8 +33,7 @@ export const tryLoadLocalLibrary = <T>(
         fallback: false,
       };
     } catch (e) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      if (e.code !== 'MODULE_NOT_FOUND') {
+      if (!isNodeExceptionCode(e, 'MODULE_NOT_FOUND')) {
         throw e;
       }
     }
