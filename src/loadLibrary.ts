@@ -1,3 +1,4 @@
+import { isNodeExceptionCode } from './isNodeExceptionCode';
 import { log } from './log';
 import { getPreferBundledLibraries } from './settings';
 
@@ -32,11 +33,7 @@ export const tryLoadLocalLibrary = <T>(
         fallback: false,
       };
     } catch (e) {
-      if (
-        !e ||
-        typeof e !== 'object' ||
-        (e as NodeJS.ErrnoException).code !== 'MODULE_NOT_FOUND'
-      ) {
+      if (!isNodeExceptionCode(e, 'MODULE_NOT_FOUND')) {
         throw e;
       }
     }
