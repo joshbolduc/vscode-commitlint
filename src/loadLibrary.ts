@@ -32,8 +32,11 @@ export const tryLoadLocalLibrary = <T>(
         fallback: false,
       };
     } catch (e) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      if (e.code !== 'MODULE_NOT_FOUND') {
+      if (
+        !e ||
+        typeof e !== 'object' ||
+        (e as NodeJS.ErrnoException).code !== 'MODULE_NOT_FOUND'
+      ) {
         throw e;
       }
     }
