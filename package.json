@@ -79,7 +79,7 @@
   },
   "main": "./dist/extension.js",
   "scripts": {
-    "build": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --external:@commitlint/lint --external:@commitlint/load --external:@commitlint/parse --format=cjs --platform=node --target=node12.18.3 --sourcemap",
+    "build": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --external:@commitlint/lint --external:@commitlint/load --external:@commitlint/parse --format=cjs --platform=node --target=node14.16.0 --sourcemap",
     "watch": "npm run -s build -- --watch",
     "build:production": "npm run -s build -- --minify",
     "package": "npm run -s build:production && vsce package --githubBranch main",
