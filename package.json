@@ -16,7 +16,7 @@
   "license": "MIT",
   "engines": {
     "npm": "^6.0.0",
-    "vscode": "^1.52.0"
+    "vscode": "^1.56.0"
   },
   "categories": [
     "Linters"
@@ -103,8 +103,8 @@
     "@commitlint/config-conventional": "13.1.0",
     "@commitlint/types": "13.1.0",
     "@types/jest": "27.0.3",
-    "@types/node": "12.19.16",
-    "@types/vscode": "1.52.0",
+    "@types/node": "14.17.34",
+    "@types/vscode": "1.56.0",
     "@typescript-eslint/eslint-plugin": "4.33.0",
     "@typescript-eslint/parser": "4.33.0",
     "esbuild": "0.14.8",
