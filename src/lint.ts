@@ -8,11 +8,16 @@ async function tryLoadConfig(path: string | undefined) {
   try {
     return await loadConfig(path);
   } catch (e) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    if (e.code === 'ENOENT') {
+    if (
+      e &&
+      typeof e === 'object' &&
+      (e as NodeJS.ErrnoException).code === 'ENOENT'
+    ) {
+      const { path, code } = e as NodeJS.ErrnoException;
       log(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/restrict-template-expressions
-        `Couldn't load commitlint config at ${e.path} (${e.code})`,
+        `Couldn't load commitlint config at ${path ?? '(unknown path)'} (${
+          code ?? 'unknown code'
+        })`,
       );
     } else {
       log(`Load config error stack:\n${e as string}`);
