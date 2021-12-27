@@ -16,7 +16,6 @@
     "prettier"
   ],
   "rules": {
-    "@typescript-eslint/explicit-module-boundary-types": "off",
     "curly": ["error", "all"],
     "import/order": ["warn", { "alphabetize": { "order": "asc" } }],
     "object-shorthand": [
