@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "commitlint": "^13.0.0"
+    "commitlint": "13.2.1"
   }
 }
