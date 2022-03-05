@@ -1,13 +1,9 @@
-import { StatusBarAlignment, StatusBarItem, window } from 'vscode';
-import { enableCommitLint } from './utils';
+import { languages, LanguageStatusItem, LanguageStatusSeverity } from 'vscode';
+import { GIT_COMMIT_LANGUAGE_ID } from './utils';
 
-const PRIORITY = 0;
+const STATUS_ITEM_ID = 'commitlint-config-status';
 
-const TEXT_ERROR = '$(error) commitlint';
-const TEXT_WARNING = '$(alert) commitlint';
-const TEXT_OK = '$(check) commitlint';
-
-let statusBarItem: StatusBarItem;
+let languageStatusItem: LanguageStatusItem;
 
 export const enum StatusCode {
   Unknown,
@@ -17,47 +13,42 @@ export const enum StatusCode {
 }
 
 function setStatusBarProperties(
-  text: string,
-  tooltip: string | undefined,
-  accessibilityLabel: string,
+  severity: LanguageStatusSeverity,
+  detail: string,
 ) {
-  statusBarItem.text = text;
-  statusBarItem.tooltip = tooltip;
-  statusBarItem.accessibilityInformation = {
-    label: accessibilityLabel,
-  };
+  languageStatusItem.text = detail;
+  languageStatusItem.detail = 'commitlint';
+  languageStatusItem.severity = severity;
 }
 
 export function initStatusBar() {
-  statusBarItem = window.createStatusBarItem(
-    StatusBarAlignment.Right,
-    PRIORITY,
-  );
+  languageStatusItem = languages.createLanguageStatusItem(STATUS_ITEM_ID, {
+    language: GIT_COMMIT_LANGUAGE_ID,
+  });
 
-  setStatusBarProperties('commitlint', undefined, 'Commit lint is running.');
+  languageStatusItem.name = 'commitlint';
+  languageStatusItem.text = 'commitlint';
+}
+
+export function disposeStatusBar() {
+  languageStatusItem.dispose();
 }
 
 function updateStatusBarWithInfo(ruleCount: number, status: StatusCode) {
   switch (status) {
     case StatusCode.ConfigLoadFailed:
       setStatusBarProperties(
-        TEXT_ERROR,
-        'Failed loading commitlint configuration. Check your configuration path.',
-        'Failed loading commit lint configuration. Check your configuration path.',
+        LanguageStatusSeverity.Error,
+        'Error loading config',
       );
       break;
     case StatusCode.NoRulesLoaded:
-      setStatusBarProperties(
-        TEXT_WARNING,
-        'No rules loaded. Commitlint may not have been configured for this repository.',
-        'Commit lint is running. No rules loaded. Commit lint may not have been configured for this repository.',
-      );
+      setStatusBarProperties(LanguageStatusSeverity.Warning, 'No rules loaded');
       break;
     case StatusCode.Ok:
       setStatusBarProperties(
-        TEXT_OK,
+        LanguageStatusSeverity.Information,
         `${ruleCount} ${ruleCount === 1 ? 'rule' : 'rules'} loaded`,
-        `Commit lint is running. ${ruleCount} rules loaded.`,
       );
       break;
   }
@@ -76,12 +67,6 @@ function determineStatus(ruleCount?: number, givenStatus = StatusCode.Unknown) {
 }
 
 export function updateStatusBar(ruleCount?: number, status?: StatusCode) {
-  if (!enableCommitLint()) {
-    statusBarItem.hide();
-    return;
-  }
-
   const actualStatus = determineStatus(ruleCount, status);
   updateStatusBarWithInfo(ruleCount ?? 0, actualStatus);
-  statusBarItem.show();
 }
