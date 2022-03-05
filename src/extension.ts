@@ -9,8 +9,7 @@ import {
 
 import { refreshDiagnostics } from './diagnostics';
 import { initLogger } from './log';
-import { initStatusBar, updateStatusBar } from './statusBar';
-import { isGitCommitDoc } from './utils';
+import { disposeStatusBar, initStatusBar } from './statusBar';
 
 function refresh(
   document: TextDocument,
@@ -35,10 +34,6 @@ export function activate(context: ExtensionContext) {
     window.onDidChangeActiveTextEditor((editor) => {
       if (editor) {
         refresh(editor.document, commitLintDiagnostics);
-
-        if (!isGitCommitDoc(editor.document)) {
-          updateStatusBar();
-        }
       }
     }),
   );
@@ -54,4 +49,8 @@ export function activate(context: ExtensionContext) {
       commitLintDiagnostics.delete(document.uri),
     ),
   );
+}
+
+export function deactivate() {
+  disposeStatusBar();
 }

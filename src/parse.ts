@@ -17,6 +17,21 @@ function isCommentLine(line: string) {
 
 const LINE_BREAK = '\n';
 
+const EMPTY_COMMIT: Readonly<Commit> = {
+  raw: '',
+  header: '',
+  type: null,
+  scope: null,
+  subject: null,
+  body: null,
+  footer: null,
+  mentions: [],
+  notes: [],
+  references: [],
+  revert: undefined,
+  merge: undefined,
+};
+
 function splitCommit(text: string) {
   return text.split(LINE_BREAK);
 }
@@ -26,7 +41,7 @@ interface Offset {
   length: number;
 }
 
-function getCommitRanges(commit: Commit) {
+function getCommitRanges(commit: Readonly<Commit>) {
   const text = commit.raw;
 
   const headerStart = text.indexOf(commit.header);
@@ -87,7 +102,9 @@ export async function parseCommit(text: string, path: string | undefined) {
 
   const parse = importCommitlintParse(path);
 
-  const commit = await parse(sanitizedText);
+  // parse will throw on empty commit messages
+  const commit =
+    sanitizedText === '' ? EMPTY_COMMIT : await parse(sanitizedText);
   const originalRanges = getCommitRanges(commit);
 
   const { offsets } = lines.reduce<{

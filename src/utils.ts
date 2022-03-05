@@ -1,11 +1,7 @@
-import { TextDocument, window } from 'vscode';
+import type { TextDocument } from 'vscode';
+
+export const GIT_COMMIT_LANGUAGE_ID = 'git-commit';
 
 export function isGitCommitDoc(doc: TextDocument) {
-  return doc.languageId === 'git-commit';
-}
-
-export function enableCommitLint() {
-  return (
-    window.activeTextEditor && isGitCommitDoc(window.activeTextEditor.document)
-  );
+  return doc.languageId === GIT_COMMIT_LANGUAGE_ID;
 }
