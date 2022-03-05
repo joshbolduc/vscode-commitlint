@@ -122,6 +122,6 @@
   "dependencies": {
     "@commitlint/lint": "16.0.0",
     "@commitlint/load": "16.2.1",
-    "@commitlint/parse": "16.0.0"
+    "@commitlint/parse": "16.2.1"
   }
 }
