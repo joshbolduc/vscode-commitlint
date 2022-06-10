@@ -21,10 +21,6 @@ This extension assumes you use [VS Code as your Git editor](https://code.visuals
 
 ## Settings
 
-### `commitlint.config.file`
-
-Path to a custom commitlint configuration file. Relative paths are resolved based on the workspace root. Leave blank to auto-detect.
-
 ### `commitlint.config.extend.rules`
 
 Commitlint rules which will be extended.
@@ -52,10 +48,22 @@ Commitlint rules which will be extended.
 }
 ```
 
+### `commitlint.config.file`
+
+Path to a commitlint configuration file. Relative paths are resolved based on the workspace root. Leave blank to auto-detect.
+
+### `commitlint.globalLibraryPath`
+
+Path to globally installed commitlint libraries, used if locally installed libraries cannot be found. Leave blank to auto-detect.
+
+### `commitlint.globalNodePath`
+
+Path to globally installed node binary, used to load globally installed configurations. Leave blank to auto-detect.
+
 ### `commitlint.log.enabled`
 
 Whether to enable logging to the output panel.
 
 ### `commitlint.preferBundledLibraries`
 
-Whether to prefer using commitlint libraries bundled with the extension over locally installed versions.
+Whether to prefer using commitlint libraries bundled with the extension over locally or globally installed versions.

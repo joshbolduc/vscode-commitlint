@@ -1,7 +1,9 @@
 import { resolve } from 'path';
 import { testLibRootPath } from '../test/util';
-import { loadLibrary, tryLoadLocalLibrary } from './loadLibrary';
+import { loadLibrary, tryLoadDynamicLibrary } from './loadLibrary';
 
+jest.mock('./getSystemGlobalLibraryPath');
+jest.mock('./getSystemGlobalNodePath');
 jest.mock('./log');
 jest.mock('./settings');
 
@@ -28,7 +30,7 @@ describe('loadLibrary', () => {
     });
   });
 
-  it('loads fallback when local path not specified', () => {
+  it('loads fallback when local path not specified and global library path not available', () => {
     const result = loadLibrary('@commitlint/load', undefined);
 
     expect(result).toEqual({
@@ -39,7 +41,7 @@ describe('loadLibrary', () => {
   });
 
   it('loads fallback when local installation not available', () => {
-    const result = tryLoadLocalLibrary(
+    const result = tryLoadDynamicLibrary(
       '@npm/not-a-real-library',
       testLibRootPath,
     );
