@@ -1,6 +1,9 @@
+import { resolve } from 'path';
+import { getPrefixForLibraryLoad } from './getPrefixForLibraryLoad';
+import { getSystemGlobalLibraryPath } from './getSystemGlobalLibraryPath';
 import { isNodeExceptionCode } from './isNodeExceptionCode';
 import { log } from './log';
-import { getPreferBundledLibraries } from './settings';
+import { getGlobalLibraryPath, getPreferBundledLibraries } from './settings';
 
 interface BaseLoadResult<T> {
   result: T;
@@ -17,13 +20,15 @@ interface BundledLibraryLoadResult<T> extends BaseLoadResult<T> {
 
 type LoadResult<T> = LocalLibraryLoadResult<T> | BundledLibraryLoadResult<T>;
 
-export const tryLoadLocalLibrary = <T>(
+export const tryLoadDynamicLibrary = <T>(
   name: string,
-  path?: string,
+  path: string | undefined,
 ): LocalLibraryLoadResult<T> | undefined => {
   if (path) {
     try {
-      const resolvePath = require.resolve(name, { paths: [path] });
+      const resolvePath = require.resolve(name, {
+        paths: [path, resolve(path, '@commitlint', 'cli')],
+      });
 
       log(`loading ${name} dynamically via ${resolvePath}`);
       return {
@@ -42,13 +47,26 @@ export const tryLoadLocalLibrary = <T>(
   return undefined;
 };
 
-export const loadLibrary = <T>(name: string, path?: string): LoadResult<T> => {
-  const localResult = getPreferBundledLibraries()
-    ? undefined
-    : tryLoadLocalLibrary<T>(name, path);
+export const loadLibrary = <T>(
+  name: string,
+  path: string | undefined,
+): LoadResult<T> => {
+  const preferBundledLibraries = getPreferBundledLibraries();
 
-  if (localResult) {
-    return localResult;
+  if (!preferBundledLibraries) {
+    const localResult = tryLoadDynamicLibrary<T>(name, path);
+    if (localResult) {
+      return localResult;
+    }
+
+    const globalPath =
+      getGlobalLibraryPath(path) || getSystemGlobalLibraryPath();
+    if (globalPath) {
+      const globalResult = tryLoadDynamicLibrary<T>(name, globalPath);
+      if (globalResult) {
+        return globalResult;
+      }
+    }
   }
 
   log(`loading bundled version of ${name} as fallback`);
@@ -57,10 +75,20 @@ export const loadLibrary = <T>(name: string, path?: string): LoadResult<T> => {
 };
 
 export const importCommitlintLoad = (path: string | undefined) => {
+  const oldEnvPrefix = process.env.PREFIX;
+  const prefixPath = getPrefixForLibraryLoad(path);
+  if (prefixPath) {
+    process.env.PREFIX = prefixPath;
+  }
+
   const { result } = loadLibrary<typeof import('@commitlint/load')>(
     '@commitlint/load',
     path,
   );
+
+  if (prefixPath) {
+    process.env.PREFIX = oldEnvPrefix;
+  }
 
   return result.default;
 };

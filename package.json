@@ -52,6 +52,18 @@
           "default": {},
           "description": "Commitlint rules which will be extended."
         },
+        "commitlint.globalLibraryPath": {
+          "scope": "machine-overridable",
+          "type": "string",
+          "default": "",
+          "description": "Path to globally installed commitlint libraries, used if locally installed libraries cannot be found. Leave blank to auto-detect."
+        },
+        "commitlint.globalNodePath": {
+          "scope": "machine-overridable",
+          "type": "string",
+          "default": "",
+          "description": "Path to globally installed node binary, used to load globally installed configurations. Leave blank to auto-detect."
+        },
         "commitlint.log.enabled": {
           "scope": "window",
           "type": "boolean",
@@ -62,7 +74,7 @@
           "scope": "window",
           "type": "boolean",
           "default": false,
-          "description": "Whether to prefer using commitlint libraries bundled with the extension over locally installed versions."
+          "description": "Whether to prefer using commitlint libraries bundled with the extension over locally or globally installed versions."
         }
       }
     },

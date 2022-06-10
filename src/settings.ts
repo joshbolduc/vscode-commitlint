@@ -1,5 +1,5 @@
 import type { QualifiedConfig } from '@commitlint/types';
-import { workspace } from 'vscode';
+import { Uri, workspace } from 'vscode';
 
 export function getConfigFile() {
   return (
@@ -30,5 +30,21 @@ export function getPreferBundledLibraries() {
     workspace
       .getConfiguration('commitlint')
       .get<boolean>('preferBundledLibraries') || false
+  );
+}
+
+export function getGlobalLibraryPath(path: string | undefined) {
+  return (
+    workspace
+      .getConfiguration('commitlint', path ? Uri.file(path) : undefined)
+      .get<string>('globalLibraryPath') || undefined
+  );
+}
+
+export function getGlobalNodePath(path: string | undefined) {
+  return (
+    workspace
+      .getConfiguration('commitlint', path ? Uri.file(path) : undefined)
+      .get<string>('globalNodePath') || undefined
   );
 }
