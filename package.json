@@ -112,7 +112,7 @@
     "eslint": "8.17.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-import": "2.26.0",
-    "jest": "28.1.0",
+    "jest": "28.1.1",
     "prettier": "2.7.0",
     "standard-version": "9.5.0",
     "ts-eager": "2.0.2",
