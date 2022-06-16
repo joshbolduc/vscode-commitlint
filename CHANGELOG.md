@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.0](https://github.com/joshbolduc/vscode-commitlint/compare/v2.2.0...v2.3.0) (2022-06-16)
+
+### Features
+
+- improve detection of installed commitlint libraries ([2a1f11b](https://github.com/joshbolduc/vscode-commitlint/commit/2a1f11b83302eecaecc73a4719ccef29a9ab05c5)), closes [#491](https://github.com/joshbolduc/vscode-commitlint/issues/491)
+
 ## [2.2.0](https://github.com/joshbolduc/vscode-commitlint/compare/v2.1.0...v2.2.0) (2022-03-05)
 
 ### Features
