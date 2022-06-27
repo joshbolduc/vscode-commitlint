@@ -118,7 +118,7 @@
     "@types/node": "14.17.34",
     "@types/vscode": "1.65.0",
     "@typescript-eslint/eslint-plugin": "5.28.0",
-    "@typescript-eslint/parser": "5.28.0",
+    "@typescript-eslint/parser": "5.30.0",
     "esbuild": "0.14.43",
     "esbuild-jest": "0.5.0",
     "eslint": "8.17.0",
