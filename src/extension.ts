@@ -29,6 +29,9 @@ export function activate(context: ExtensionContext) {
   if (window.activeTextEditor) {
     refresh(window.activeTextEditor.document, commitLintDiagnostics);
   }
+  workspace.textDocuments.forEach((doc) => {
+    refresh(doc, commitLintDiagnostics);
+  });
 
   context.subscriptions.push(
     window.onDidChangeActiveTextEditor((editor) => {
@@ -36,15 +39,12 @@ export function activate(context: ExtensionContext) {
         refresh(editor.document, commitLintDiagnostics);
       }
     }),
-  );
-
-  context.subscriptions.push(
-    workspace.onDidChangeTextDocument((editor) => {
-      refresh(editor.document, commitLintDiagnostics);
+    workspace.onDidOpenTextDocument((doc) => {
+      refresh(doc, commitLintDiagnostics);
     }),
-  );
-
-  context.subscriptions.push(
+    workspace.onDidChangeTextDocument((event) => {
+      refresh(event.document, commitLintDiagnostics);
+    }),
     workspace.onDidCloseTextDocument((document) =>
       commitLintDiagnostics.delete(document.uri),
     ),

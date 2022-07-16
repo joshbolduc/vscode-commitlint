@@ -8,9 +8,17 @@ import {
   Uri,
   workspace,
 } from 'vscode';
+import type { InputBox } from './git';
 import { runLint } from './lint';
 import { parseCommit } from './parse';
-import { isGitCommitDoc } from './utils';
+import { tryGetGitExtensionApi } from './tryGetGitExtensionApi';
+import { isGitCommitDoc, isScmTextInput } from './utils';
+
+interface InputBoxPrivate extends InputBox {
+  _inputBox: {
+    _sourceControlHandle: number;
+  };
+}
 
 const rulePrefixMapping = {
   header: ['header', 'scope', 'subject', 'type'],
@@ -55,7 +63,7 @@ function createDiagnostic(
 }
 
 async function tryGetDiagnostics(doc: TextDocument) {
-  if (!isGitCommitDoc(doc)) {
+  if (!isGitCommitDoc(doc) && !isScmTextInput(doc)) {
     return [];
   }
 
@@ -66,14 +74,49 @@ async function tryGetDiagnostics(doc: TextDocument) {
   }
 }
 
+function getUriForDoc(doc: TextDocument) {
+  if (!doc.isUntitled && doc.uri.scheme === 'file') {
+    return doc.uri;
+  }
+
+  if (isScmTextInput(doc)) {
+    const git = tryGetGitExtensionApi();
+
+    if (git) {
+      const matches = /scm\/git\/scm([0-9]+)\//.exec(doc.uri.path);
+      if (matches?.[1]) {
+        const handle = parseInt(matches[1]);
+
+        const repo = git.repositories.find((repo) => {
+          try {
+            // This is undocumented, but there doesn't seem to be a better way to
+            // figure out which repository the doc corresponds to
+            return (
+              (repo.inputBox as InputBoxPrivate)._inputBox
+                ._sourceControlHandle === handle
+            );
+          } catch {
+            // Undocumented API might have changed
+            return false;
+          }
+        });
+
+        if (repo) {
+          return repo.rootUri;
+        }
+      }
+    }
+  }
+
+  // Fall back to (first) workspace root
+  return workspace.workspaceFolders?.[0]?.uri;
+}
+
 async function getDiagnostics(doc: TextDocument) {
   const text = doc.getText();
 
-  const useWorkspaceConfig = doc.isUntitled || doc.uri.scheme !== 'file';
-
-  const path = useWorkspaceConfig
-    ? workspace.workspaceFolders?.[0]?.uri.fsPath
-    : doc.uri.fsPath;
+  const uri = getUriForDoc(doc);
+  const path = uri?.fsPath;
 
   const { ranges, sanitizedText } = await parseCommit(text, path);
 

@@ -29,7 +29,8 @@
     "conventional"
   ],
   "activationEvents": [
-    "onLanguage:git-commit"
+    "onLanguage:git-commit",
+    "onLanguage:scminput"
   ],
   "capabilities": {
     "untrustedWorkspaces": {
