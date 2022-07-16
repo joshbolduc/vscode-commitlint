@@ -1,6 +1,6 @@
 # vscode-commitlint
 
-A VS Code extension that integrates [commitlint](https://github.com/conventional-changelog/commitlint) into [VS Code's commit editor](https://code.visualstudio.com/docs/editor/versioncontrol#_vs-code-as-git-editor).
+A VS Code extension that integrates [commitlint](https://github.com/conventional-changelog/commitlint) into VS Code's commit editor.
 
 **[Install from the Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=joshbolduc.commitlint)**
 
@@ -17,7 +17,17 @@ A VS Code extension that integrates [commitlint](https://github.com/conventional
 
 ## Requirements
 
-This extension assumes you use [VS Code as your Git editor](https://code.visualstudio.com/docs/editor/versioncontrol#_vs-code-as-git-editor) and have [configured commitlint in your project](https://commitlint.js.org/#/?id=getting-started).
+This extension assumes you have [configured commitlint in your project](https://commitlint.js.org/#/?id=getting-started). Alternatively, you can configure your own rules using [the `commitlint.config.extend.rules` setting](#commitlintconfigextendrules).
+
+You will also need write your commit messages using VS Code. This extension supports both the [built-in SCM input](https://code.visualstudio.com/docs/editor/versioncontrol#_commit) and the full editor.
+
+### Configuring VS Code to use the full editor for commit messages
+
+If you choose, VS Code can be configured to use the full editor for editing commit messages:
+
+- [When the built-in SCM input is empty, using the `git.useEditorAsCommitInput` setting](https://code.visualstudio.com/updates/v1_69#_author-commit-message-using-an-editor)
+- [As the editor for `git` commands spawned in the integrated terminal, using the `git.terminalGitEditor` setting](https://code.visualstudio.com/updates/v1_69#_author-commit-message-using-an-editor)
+- [As the default commit editor](https://code.visualstudio.com/docs/editor/versioncontrol#_vs-code-as-git-editor)
 
 ## Settings
 

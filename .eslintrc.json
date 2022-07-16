@@ -9,6 +9,7 @@
     "project": "./tsconfig.json"
   },
   "plugins": ["@typescript-eslint", "import"],
+  "ignorePatterns": ["src/git.d.ts"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
