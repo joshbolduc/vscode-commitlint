@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.1](https://github.com/joshbolduc/vscode-commitlint/compare/v2.4.0...v2.4.1) (2022-09-05)
+
+### Bug Fixes
+
+- support new vscode-scm scheme ([ab431d2](https://github.com/joshbolduc/vscode-commitlint/commit/ab431d23f7ed3dc6d963a8707c7b75494f3594d0)), closes [/github.com/microsoft/vscode/issues/35571#issuecomment-1195219643](https://github.com/joshbolduc//github.com/microsoft/vscode/issues/35571/issues/issuecomment-1195219643)
+
 ## [2.4.0](https://github.com/joshbolduc/vscode-commitlint/compare/v2.3.0...v2.4.0) (2022-07-17)
 
 ### Features
