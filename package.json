@@ -114,7 +114,7 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "16.2.1",
-    "@commitlint/types": "16.2.1",
+    "@commitlint/types": "17.0.0",
     "@types/jest": "29.2.4",
     "@types/node": "14.17.34",
     "@types/vscode": "1.65.0",
