@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.2](https://github.com/joshbolduc/vscode-commitlint/compare/v2.4.1...v2.4.2) (2023-01-16)
+
+### Bug Fixes
+
+- don't reset `PREFIX` env var to undefined ([5cbaa02](https://github.com/joshbolduc/vscode-commitlint/commit/5cbaa027a8e2aee07d469f1baf0d5543e8c9cd17)), closes [#621](https://github.com/joshbolduc/vscode-commitlint/issues/621)
+
 ### [2.4.1](https://github.com/joshbolduc/vscode-commitlint/compare/v2.4.0...v2.4.1) (2022-09-05)
 
 ### Bug Fixes
