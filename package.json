@@ -88,6 +88,12 @@
         "fileMatch": "package.json",
         "url": "./package-json-schema.json"
       }
+    ],
+    "snippets": [
+      {
+        "language": "plaintext",
+        "path": "./snippets/snippets.json"
+      }
     ]
   },
   "main": "./dist/extension.js",

@@ -1,0 +1,18 @@
+{
+    "commitlint:describe": {
+        "description": "[commitlint:describe]",
+        "prefix": "commitlint:describe",
+        "body": [
+            "${1|feat,fix,docs,style,refactor,test,revert|}(${2:scope}): ${3:subject}"
+        ]
+    },
+    "commitlint:describe-long": {
+        "description": "[commitlint:describe-long]",
+        "prefix": "commitlint:describe-long",
+        "body": [
+            "${1|feat,fix,docs,style,refactor,test,revert|}(${2:scope}): ${3:subject}",
+            "",
+            "${4:body}"
+        ]
+    }
+}
