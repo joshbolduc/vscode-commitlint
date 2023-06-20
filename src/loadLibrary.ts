@@ -80,15 +80,21 @@ export const loadLibrary = <T>(
 
 export const importCommitlintLoad = (path: string | undefined) => {
   const oldEnvPrefix = process.env.PREFIX;
-  const prefixPath = getPrefixForLibraryLoad(path);
+
+  const loadResult = loadLibrary<typeof import('@commitlint/load')>(
+    '@commitlint/load',
+    path,
+  );
+
+  const prefixPath = getPrefixForLibraryLoad(
+    path,
+    'path' in loadResult ? loadResult.path : undefined,
+  );
   if (prefixPath) {
     process.env.PREFIX = prefixPath;
   }
 
-  const { result } = loadLibrary<typeof import('@commitlint/load')>(
-    '@commitlint/load',
-    path,
-  );
+  const { result } = loadResult;
 
   if (prefixPath) {
     if (typeof oldEnvPrefix === undefined) {
