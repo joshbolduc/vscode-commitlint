@@ -27,7 +27,11 @@ export const tryLoadDynamicLibrary = <T>(
   if (path) {
     try {
       const resolvePath = require.resolve(name, {
-        paths: [path, resolve(path, '@commitlint', 'cli')],
+        paths: [
+          path,
+          resolve(path, '@commitlint', 'cli'),
+          resolve(path, 'commitlint'),
+        ],
       });
 
       log(`loading ${name} dynamically via ${resolvePath}`);
