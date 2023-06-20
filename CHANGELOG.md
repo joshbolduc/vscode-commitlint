@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.3](https://github.com/joshbolduc/vscode-commitlint/compare/v2.4.2...v2.4.3) (2023-06-20)
+
+### Bug Fixes
+
+- prefer local library path as PREFIX ([c1ba4d0](https://github.com/joshbolduc/vscode-commitlint/commit/c1ba4d04306e228ddcf4a006883d7296562fc449)), closes [#600](https://github.com/joshbolduc/vscode-commitlint/issues/600) [#744](https://github.com/joshbolduc/vscode-commitlint/issues/744)
+- search for packages under `commitlint` ([713c899](https://github.com/joshbolduc/vscode-commitlint/commit/713c8998afedad4bf8cd32e8a373ee52e57cc3db))
+
 ### [2.4.2](https://github.com/joshbolduc/vscode-commitlint/compare/v2.4.1...v2.4.2) (2023-01-16)
 
 ### Bug Fixes
