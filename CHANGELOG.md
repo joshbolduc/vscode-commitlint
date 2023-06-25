@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.4](https://github.com/joshbolduc/vscode-commitlint/compare/v2.4.3...v2.4.4) (2023-06-25)
+
+### Bug Fixes
+
+- support plugins and additional config properties ([38d3080](https://github.com/joshbolduc/vscode-commitlint/commit/38d3080ef671dac060a88157d20c97a353ac7aa1)), closes [#730](https://github.com/joshbolduc/vscode-commitlint/issues/730)
+
 ### [2.4.3](https://github.com/joshbolduc/vscode-commitlint/compare/v2.4.2...v2.4.3) (2023-06-20)
 
 ### Bug Fixes
