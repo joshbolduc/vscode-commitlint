@@ -10,7 +10,9 @@ import {
 } from 'vscode';
 import type { InputBox } from './git';
 import { runLint } from './lint';
+import { log } from './log';
 import { parseCommit } from './parse';
+import { stringify } from './stringify';
 import { tryGetGitExtensionApi } from './tryGetGitExtensionApi';
 import { isGitCommitDoc, isScmTextInput } from './utils';
 
@@ -69,7 +71,9 @@ async function tryGetDiagnostics(doc: TextDocument) {
 
   try {
     return await getDiagnostics(doc);
-  } catch {
+  } catch (e) {
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    log(`Uncaught exception: ${stringify(e)}`);
     return [];
   }
 }

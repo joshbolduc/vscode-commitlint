@@ -41,13 +41,13 @@ export async function runLint(text: string, path: string | undefined) {
   const lint = importCommitlintLint(path);
 
   return {
-    problems: await lint(
-      text,
-      config.rules,
-      config.parserPreset
-        ? { parserOpts: config.parserPreset.parserOpts as ParserOptions }
-        : {},
-    ),
+    problems: await lint(text, config.rules, {
+      defaultIgnores: config.defaultIgnores,
+      helpUrl: config.helpUrl,
+      ignores: config.ignores,
+      parserOpts: config.parserPreset?.parserOpts as ParserOptions | undefined,
+      plugins: config.plugins,
+    }),
     helpUrl: config.helpUrl,
   };
 }
