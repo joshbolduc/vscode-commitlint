@@ -33,3 +33,11 @@ export async function getGitConfigForUri(uri: Uri, key: string) {
     return await getGitConfigForRepo(repo, key);
   }
 }
+
+export function isGitConfigBooleanTrue(value: string) {
+  // Boolean true literals are yes, on, true, and 1. Also, a variable defined
+  // without = <value> is taken as true.
+  // @see
+  // https://www.git-scm.com/docs/git-config/2.41.0#Documentation/git-config.txt-true
+  return ['yes', 'on', 'true', '1', ''].includes(value);
+}

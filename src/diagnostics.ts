@@ -8,7 +8,7 @@ import {
   Uri,
   workspace,
 } from 'vscode';
-import { getCommentChar } from './commentChar';
+import { DEFAULT_COMMENT_CHAR, getCommentChar } from './commentChar';
 import type { InputBox } from './git';
 import { runLint } from './lint';
 import { log } from './log';
@@ -16,6 +16,7 @@ import { parseCommit } from './parse';
 import { stringify } from './stringify';
 import { tryGetGitExtensionApi } from './tryGetGitExtensionApi';
 import { isGitCommitDoc, isScmTextInput } from './utils';
+import { getVerbose } from './verbose';
 
 interface InputBoxPrivate extends InputBox {
   _inputBox: {
@@ -124,8 +125,16 @@ async function getDiagnostics(doc: TextDocument) {
   const path = uri?.fsPath;
 
   const commentChar = await getCommentChar(doc, uri);
+  const verbose = await getVerbose(
+    doc,
+    uri,
+    text,
+    commentChar ?? DEFAULT_COMMENT_CHAR,
+  );
+
   const { ranges, sanitizedText } = await parseCommit(text, path, {
     commentChar,
+    verbose,
   });
 
   const lintResult = await runLint(sanitizedText, path);

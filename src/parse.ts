@@ -1,13 +1,14 @@
 import type { Commit } from '@commitlint/types';
+import { DEFAULT_COMMENT_CHAR } from './commentChar';
 import { importCommitlintParse } from './loadLibrary';
+import { LINE_BREAK, splitCommit } from './splitCommit';
+import { getScissorsLine } from './verbose';
 
 type KnownSection = 'header' | 'body' | 'footer' | 'scope' | 'subject' | 'type';
 
 type Range = [start: number, end: number];
 
 type SectionRanges = Partial<Record<KnownSection, Range>>;
-
-const LINE_BREAK = '\n';
 
 const EMPTY_COMMIT: Readonly<Commit> = {
   raw: '',
@@ -23,10 +24,6 @@ const EMPTY_COMMIT: Readonly<Commit> = {
   revert: undefined,
   merge: undefined,
 };
-
-function splitCommit(text: string) {
-  return text.split(LINE_BREAK);
-}
 
 interface Offset {
   index: number;
@@ -77,7 +74,10 @@ function getCommitRanges(commit: Readonly<Commit>) {
 export async function parseCommit(
   text: string,
   path: string | undefined,
-  { commentChar }: { commentChar: string | undefined },
+  {
+    commentChar,
+    verbose,
+  }: { commentChar: string | undefined; verbose: boolean },
 ) {
   function isCommentLine(line: string) {
     return commentChar && line.startsWith(commentChar);
@@ -87,18 +87,28 @@ export async function parseCommit(
     return !isCommentLine(line) && line !== '';
   }
 
-  const lines = splitCommit(text);
+  const inputLines = splitCommit(text);
 
-  const firstContentLine = lines.findIndex(isValidLine);
-  const lastContentLine = lines.reduceRight((prev, cur, i) => {
+  const scissorsLine = getScissorsLine(commentChar ?? DEFAULT_COMMENT_CHAR);
+  const scissorsLineIndex = verbose
+    ? inputLines.findIndex((line) => line === scissorsLine)
+    : -1;
+
+  const linesWithoutScissors =
+    scissorsLineIndex >= 0
+      ? inputLines.slice(0, scissorsLineIndex)
+      : inputLines;
+
+  const firstContentLine = linesWithoutScissors.findIndex(isValidLine);
+  const lastContentLine = linesWithoutScissors.reduceRight((prev, cur, i) => {
     if (prev === i && !isValidLine(cur)) {
       return i - 1;
     }
 
     return prev;
-  }, lines.length - 1);
+  }, linesWithoutScissors.length - 1);
 
-  const sanitizedText = lines
+  const sanitizedText = inputLines
     .slice(firstContentLine, lastContentLine + 1)
     .filter((line) => !isCommentLine(line))
     .join(LINE_BREAK);
@@ -110,7 +120,7 @@ export async function parseCommit(
     sanitizedText === '' ? EMPTY_COMMIT : await parse(sanitizedText);
   const originalRanges = getCommitRanges(commit);
 
-  const { offsets } = lines.reduce<{
+  const { offsets } = inputLines.reduce<{
     offsets: Offset[];
     index: number;
   }>(
