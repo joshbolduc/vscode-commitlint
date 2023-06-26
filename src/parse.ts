@@ -44,12 +44,15 @@ interface Offset {
 function getCommitRanges(commit: Readonly<Commit>) {
   const text = commit.raw;
 
-  const headerStart = text.indexOf(commit.header);
-  const headerEnd = headerStart + commit.header.length;
+  const ranges: SectionRanges = {};
 
-  const ranges: SectionRanges = {
-    header: [headerStart, headerEnd],
-  };
+  if (commit.header) {
+    const headerStart = text.indexOf(commit.header);
+    const headerEnd = headerStart + commit.header.length;
+    ranges.header = [headerStart, headerEnd];
+  }
+
+  const [headerStart, headerEnd] = ranges.header ?? [0, 0];
 
   if (commit.body) {
     const bodyStart = text.indexOf(commit.body, headerEnd);
