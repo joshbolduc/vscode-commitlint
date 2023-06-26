@@ -5,6 +5,7 @@ import { parseCommit } from './parse';
 
 jest.mock('./log');
 jest.mock('./settings');
+jest.mock('./tryGetGitExtensionApi.ts');
 
 describe('parse', () => {
   const versions = readdirSync(testLibRootPath).filter((item) =>
@@ -68,16 +69,31 @@ Body line`,
 Body line`,
       },
     ],
+    [
+      'commit-question-comment.txt',
+      {
+        ranges: {
+          body: [18, 27],
+          header: [0, 6],
+        },
+        sanitizedText: `Header
+
+Body line`,
+      },
+      { commentChar: '?' },
+    ],
   ] as const;
 
   versions.forEach((version) => {
     const libPath = resolve(testLibRootPath, `${version}`);
 
-    fixtures.forEach(([fixture, expected]) => {
-      it(`parses ${fixture} using ${version}`, async () => {
+    fixtures.forEach(([fixture, expected, options = { commentChar: '#' }]) => {
+      it(`parses ${fixture} using ${version} (${options.commentChar})`, async () => {
         const contents = readFileSync(join(fixturesPath, fixture)).toString();
 
-        expect(await parseCommit(contents, libPath)).toStrictEqual(expected);
+        expect(await parseCommit(contents, libPath, options)).toStrictEqual(
+          expected,
+        );
       });
     });
   });

@@ -7,14 +7,6 @@ type Range = [start: number, end: number];
 
 type SectionRanges = Partial<Record<KnownSection, Range>>;
 
-function isCommentLine(line: string) {
-  // TODO: this is actually configurable per git config. see:
-  // https://stackoverflow.com/questions/22936252/escape-comment-character-in-git-commit-message
-  const commentChar = '#';
-
-  return line.startsWith(commentChar);
-}
-
 const LINE_BREAK = '\n';
 
 const EMPTY_COMMIT: Readonly<Commit> = {
@@ -82,11 +74,19 @@ function getCommitRanges(commit: Readonly<Commit>) {
   return ranges;
 }
 
-function isValidLine(line: string) {
-  return !isCommentLine(line) && line !== '';
-}
+export async function parseCommit(
+  text: string,
+  path: string | undefined,
+  { commentChar }: { commentChar: string | undefined },
+) {
+  function isCommentLine(line: string) {
+    return commentChar && line.startsWith(commentChar);
+  }
 
-export async function parseCommit(text: string, path: string | undefined) {
+  function isValidLine(line: string) {
+    return !isCommentLine(line) && line !== '';
+  }
+
   const lines = splitCommit(text);
 
   const firstContentLine = lines.findIndex(isValidLine);
