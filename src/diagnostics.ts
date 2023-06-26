@@ -8,6 +8,7 @@ import {
   Uri,
   workspace,
 } from 'vscode';
+import { getCommentChar } from './commentChar';
 import type { InputBox } from './git';
 import { runLint } from './lint';
 import { log } from './log';
@@ -122,7 +123,10 @@ async function getDiagnostics(doc: TextDocument) {
   const uri = getUriForDoc(doc);
   const path = uri?.fsPath;
 
-  const { ranges, sanitizedText } = await parseCommit(text, path);
+  const commentChar = await getCommentChar(doc, uri);
+  const { ranges, sanitizedText } = await parseCommit(text, path, {
+    commentChar,
+  });
 
   const lintResult = await runLint(sanitizedText, path);
 
