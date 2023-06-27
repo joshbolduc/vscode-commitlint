@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.5](https://github.com/joshbolduc/vscode-commitlint/compare/v2.4.4...v2.4.5) (2023-06-27)
+
+### Bug Fixes
+
+- log error when git extension can't be loaded ([db21142](https://github.com/joshbolduc/vscode-commitlint/commit/db21142b89509989627a9912d9f401299aafe8ef))
+- support git `core.commentChar` config ([d03a694](https://github.com/joshbolduc/vscode-commitlint/commit/d03a694c055f9f57e1946bc379413fb463b6129d))
+- support verbose commits ([4dc32df](https://github.com/joshbolduc/vscode-commitlint/commit/4dc32df1ca0c63f20b6bda5466cc10f422a97667)), closes [#593](https://github.com/joshbolduc/vscode-commitlint/issues/593)
+
 ### [2.4.4](https://github.com/joshbolduc/vscode-commitlint/compare/v2.4.3...v2.4.4) (2023-06-25)
 
 ### Bug Fixes
