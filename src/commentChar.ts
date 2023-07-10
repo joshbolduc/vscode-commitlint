@@ -11,7 +11,7 @@ export async function getCommentChar(doc: TextDocument, uri: Uri | undefined) {
   }
 
   return (
-    (uri ? getGitConfigForUri(uri, 'core.commentchar') : undefined) ??
+    (uri ? await getGitConfigForUri(uri, 'core.commentchar') : undefined) ??
     DEFAULT_COMMENT_CHAR
   );
 }
