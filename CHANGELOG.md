@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.6](https://github.com/joshbolduc/vscode-commitlint/compare/v2.4.5...v2.4.6) (2023-07-10)
+
+### Bug Fixes
+
+- fix handling of unset comment char ([f971003](https://github.com/joshbolduc/vscode-commitlint/commit/f971003483e3771f2b2edf9c1123b14c12910135))
+
 ### [2.4.5](https://github.com/joshbolduc/vscode-commitlint/compare/v2.4.4...v2.4.5) (2023-06-27)
 
 ### Bug Fixes
