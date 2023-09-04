@@ -9,19 +9,8 @@ import { getGlobalNodePath } from './settings';
 //
 // @see
 // https://github.com/sindresorhus/global-dirs/blob/a9aca465edc840ae1387f1aa9d5dc6de1e944471/index.js
-export const getPrefixForLibraryLoad = (
-  commitFilePath: string | undefined,
-  loadLibraryPath: string | undefined,
-) => {
-  const globalNodePathSetting = getGlobalNodePath(commitFilePath);
-
-  // Use the discovered path for `@commitlint/load` if available and no global
-  // node path has been specified by the user.
-  if (!globalNodePathSetting && loadLibraryPath) {
-    return loadLibraryPath;
-  }
-
-  const globalPath = globalNodePathSetting || getSystemGlobalNodePath();
+export const getPrefixForLibraryLoad = (path: string | undefined) => {
+  const globalPath = getGlobalNodePath(path) || getSystemGlobalNodePath();
   if (globalPath) {
     if (process.platform === 'win32') {
       return dirname(globalPath);
