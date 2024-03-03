@@ -6,7 +6,7 @@ import { log } from './log';
 import { getGlobalLibraryPath, getPreferBundledLibraries } from './settings';
 
 interface BaseLoadResult<T> {
-  result: T;
+  result: Promise<UnwrapDefault<T>>;
 }
 
 interface LocalLibraryLoadResult<T> extends BaseLoadResult<T> {
@@ -19,6 +19,24 @@ interface BundledLibraryLoadResult<T> extends BaseLoadResult<T> {
 }
 
 type LoadResult<T> = LocalLibraryLoadResult<T> | BundledLibraryLoadResult<T>;
+
+type UnwrapDefault<T> = T extends {
+  default: infer U;
+}
+  ? U
+  : T;
+
+const unwrapDefaultExport = <T>(module: T): UnwrapDefault<T> => {
+  if (typeof module === 'object' && module !== null && 'default' in module) {
+    return unwrapDefaultExport(module.default) as UnwrapDefault<T>;
+  }
+  return module as UnwrapDefault<T>;
+};
+
+const importDefaultExport = async <T>(path: string) => {
+  const result = (await import(path)) as T;
+  return unwrapDefaultExport(result);
+};
 
 export const tryLoadDynamicLibrary = <T>(
   name: string,
@@ -36,8 +54,7 @@ export const tryLoadDynamicLibrary = <T>(
 
       log(`loading ${name} dynamically via ${resolvePath}`);
       return {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        result: require(resolvePath) as T,
+        result: importDefaultExport<T>(resolvePath),
         path: resolvePath,
         fallback: false,
       };
@@ -74,11 +91,13 @@ export const loadLibrary = <T>(
   }
 
   log(`loading bundled version of ${name} as fallback`);
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  return { result: require(name) as T, fallback: true };
+  return {
+    result: importDefaultExport<T>(name),
+    fallback: true,
+  };
 };
 
-export const importCommitlintLoad = (path: string | undefined) => {
+export const importCommitlintLoad = async (path: string | undefined) => {
   const oldEnvPrefix = process.env.PREFIX;
   const prefixPath = getPrefixForLibraryLoad(path);
   if (prefixPath) {
@@ -98,23 +117,23 @@ export const importCommitlintLoad = (path: string | undefined) => {
     }
   }
 
-  return result.default;
+  return result;
 };
 
-export const importCommitlintParse = (path: string | undefined) => {
+export const importCommitlintParse = async (path: string | undefined) => {
   const { result } = loadLibrary<typeof import('@commitlint/parse')>(
     '@commitlint/parse',
     path,
   );
 
-  return result.default;
+  return result;
 };
 
-export const importCommitlintLint = (path: string | undefined) => {
+export const importCommitlintLint = async (path: string | undefined) => {
   const { result } = loadLibrary<typeof import('@commitlint/lint')>(
     '@commitlint/lint',
     path,
   );
 
-  return result.default;
+  return result;
 };
