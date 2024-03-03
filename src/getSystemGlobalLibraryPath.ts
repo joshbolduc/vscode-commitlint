@@ -4,13 +4,11 @@ let cachedGlobalLibraryPath: string | undefined;
 
 export const getSystemGlobalLibraryPath = () => {
   if (!cachedGlobalLibraryPath) {
-    cachedGlobalLibraryPath = (
-      spawnSync(process.platform === 'win32' ? 'npm.cmd' : 'npm', [
-        'root',
-        '-g',
-      ]).stdout as string | null
+    cachedGlobalLibraryPath = spawnSync(
+      process.platform === 'win32' ? 'npm.cmd' : 'npm',
+      ['root', '-g'],
     )
-      ?.toString()
+      .stdout?.toString()
       .trim();
   }
   return cachedGlobalLibraryPath;
