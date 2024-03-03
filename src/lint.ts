@@ -38,7 +38,7 @@ export async function runLint(text: string, path: string | undefined) {
   );
   updateStatusBar(ruleCount);
 
-  const lint = importCommitlintLint(path);
+  const lint = await importCommitlintLint(path);
 
   return {
     problems: await lint(text, config.rules, {
