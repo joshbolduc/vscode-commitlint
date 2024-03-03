@@ -1,11 +1,12 @@
 import { resolve } from 'path';
+import { describe, expect, it, vi } from 'vitest';
 import { testLibRootPath } from '../test/util';
 import { loadLibrary, tryLoadDynamicLibrary } from './loadLibrary';
 
-jest.mock('./getSystemGlobalLibraryPath');
-jest.mock('./getSystemGlobalNodePath');
-jest.mock('./log');
-jest.mock('./settings');
+vi.mock('./getSystemGlobalLibraryPath');
+vi.mock('./getSystemGlobalNodePath');
+vi.mock('./log');
+vi.mock('./settings');
 
 describe('loadLibrary', () => {
   it('loads library installed locally', () => {
