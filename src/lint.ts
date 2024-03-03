@@ -1,4 +1,4 @@
-import type { ParserOptions } from '@commitlint/types';
+import type { LintOptions } from '@commitlint/types';
 import { loadConfig } from './config';
 import { isNodeExceptionCode } from './isNodeExceptionCode';
 import { importCommitlintLint } from './loadLibrary';
@@ -45,7 +45,7 @@ export async function runLint(text: string, path: string | undefined) {
       defaultIgnores: config.defaultIgnores,
       helpUrl: config.helpUrl,
       ignores: config.ignores,
-      parserOpts: config.parserPreset?.parserOpts as ParserOptions | undefined,
+      parserOpts: config.parserPreset?.parserOpts as LintOptions['parserOpts'],
       plugins: config.plugins,
     }),
     helpUrl: config.helpUrl,
