@@ -1,0 +1,8 @@
+{
+  "name": "commitlint-test-v18",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "commitlint": "18.0.0"
+  }
+}
