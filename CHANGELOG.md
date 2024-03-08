@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.5.1](https://github.com/joshbolduc/vscode-commitlint/compare/v2.5.0...v2.5.1) (2024-03-08)
+
+### Bug Fixes
+
+- gracefully handle ESM modules ([dc6a417](https://github.com/joshbolduc/vscode-commitlint/commit/dc6a417060a27275a6f64d90f173c93399524972))
+- roll back bundled commitlint to v18 ([3fe7f61](https://github.com/joshbolduc/vscode-commitlint/commit/3fe7f613080692523121cf2fbd4caa8212a57b04))
+
 ## [2.5.0](https://github.com/joshbolduc/vscode-commitlint/compare/v2.4.7...v2.5.0) (2024-03-03)
 
 ### Features
