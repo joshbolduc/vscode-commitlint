@@ -42,7 +42,10 @@ export const tryLoadDynamicLibrary = <T>(
         fallback: false,
       };
     } catch (e) {
-      if (!isNodeExceptionCode(e, 'MODULE_NOT_FOUND')) {
+      if (
+        !isNodeExceptionCode(e, 'MODULE_NOT_FOUND') &&
+        !isNodeExceptionCode(e, 'ERR_REQUIRE_ESM')
+      ) {
         throw e;
       }
     }
