@@ -117,7 +117,7 @@ export async function parseCommit(
     .filter((line) => !isCommentLine(line))
     .join(LINE_BREAK);
 
-  const parse = await importCommitlintParse(path);
+  const parse = importCommitlintParse(path);
 
   // parse will throw on empty commit messages
   const commit =

@@ -34,7 +34,7 @@ export async function loadConfig(path: string | undefined) {
     path,
   );
 
-  const load = await importCommitlintLoad(loadOptions.cwd);
+  const load = importCommitlintLoad(loadOptions.cwd);
 
   const config = await load({}, loadOptions);
   log(

@@ -9,13 +9,13 @@ vi.mock('./log');
 vi.mock('./settings');
 
 describe('loadLibrary', () => {
-  it('loads library installed locally', async () => {
-    const { result, ...rest } = loadLibrary(
+  it('loads library installed locally', () => {
+    const result = loadLibrary(
       '@commitlint/load',
       resolve(testLibRootPath, 'v11'),
     );
 
-    expect(rest).toEqual({
+    expect(result).toEqual({
       fallback: false,
       path: resolve(
         testLibRootPath,
@@ -26,19 +26,19 @@ describe('loadLibrary', () => {
         'lib',
         'load.js',
       ),
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      result: { default: expect.any(Function) },
     });
-
-    expect(await result).toMatchObject(expect.any(Function));
   });
 
-  it('loads fallback when local path not specified and global library path not available', async () => {
-    const { result, ...rest } = loadLibrary('@commitlint/load', undefined);
+  it('loads fallback when local path not specified and global library path not available', () => {
+    const result = loadLibrary('@commitlint/load', undefined);
 
-    expect(rest).toEqual({
+    expect(result).toEqual({
       fallback: true,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      result: { default: expect.any(Function) },
     });
-
-    expect(await result).toMatchObject(expect.any(Function));
   });
 
   it('loads fallback when local installation not available', () => {
