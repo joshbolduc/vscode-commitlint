@@ -3,9 +3,9 @@ import type { GitExtension } from './git';
 import { log } from './log';
 
 export function tryGetGitExtensionApi() {
-  const gitExtension =
-    extensions.getExtension<GitExtension>('vscode.git')?.exports;
   try {
+    const gitExtension =
+      extensions.getExtension<GitExtension>('vscode.git')?.exports;
     return gitExtension?.getAPI(1);
   } catch {
     log('Unable to load git extension (not enabled or not yet loaded)');
