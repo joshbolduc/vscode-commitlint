@@ -1,11 +1,12 @@
 import { readdirSync, readFileSync, statSync } from 'fs';
 import { join, resolve } from 'path';
+import { describe, expect, it, vi } from 'vitest';
 import { fixturesPath, testLibRootPath } from '../test/util';
 import { parseCommit } from './parse';
 
-jest.mock('./log');
-jest.mock('./settings');
-jest.mock('./tryGetGitExtensionApi.ts');
+vi.mock('./log');
+vi.mock('./settings');
+vi.mock('./tryGetGitExtensionApi.ts');
 
 describe('parse', () => {
   const versions = readdirSync(testLibRootPath).filter((item) =>

@@ -1,8 +1,10 @@
-import type { Commit } from '@commitlint/types';
+import type parse from '@commitlint/parse';
 import { DEFAULT_COMMENT_CHAR } from './commentChar';
 import { importCommitlintParse } from './loadLibrary';
 import { LINE_BREAK, splitCommit } from './splitCommit';
 import { getScissorsLine } from './verbose';
+
+type Commit = Awaited<ReturnType<typeof parse>>;
 
 type KnownSection = 'header' | 'body' | 'footer' | 'scope' | 'subject' | 'type';
 
@@ -10,7 +12,7 @@ type Range = [start: number, end: number];
 
 type SectionRanges = Partial<Record<KnownSection, Range>>;
 
-const EMPTY_COMMIT: Readonly<Commit> = {
+const EMPTY_COMMIT = {
   raw: '',
   header: '',
   type: null,
@@ -23,15 +25,15 @@ const EMPTY_COMMIT: Readonly<Commit> = {
   references: [],
   revert: undefined,
   merge: undefined,
-};
+} as const;
 
 interface Offset {
   index: number;
   length: number;
 }
 
-function getCommitRanges(commit: Readonly<Commit>) {
-  const text = commit.raw;
+function getCommitRanges(commit: Readonly<Commit> | typeof EMPTY_COMMIT) {
+  const text = commit.raw ?? '';
 
   const ranges: SectionRanges = {};
 
@@ -55,17 +57,19 @@ function getCommitRanges(commit: Readonly<Commit>) {
     ranges.footer = [footerStart, footerEnd];
   }
 
-  if (commit.type) {
-    const typeStart = headerStart + commit.header.indexOf(commit.type);
-    const typeEnd = headerStart + typeStart + commit.type.length;
-    ranges.type = [typeStart, typeEnd];
-  }
+  if (commit.header) {
+    if (commit.type) {
+      const typeStart = headerStart + commit.header.indexOf(commit.type);
+      const typeEnd = headerStart + typeStart + commit.type.length;
+      ranges.type = [typeStart, typeEnd];
+    }
 
-  if (commit.scope) {
-    const scopeStart =
-      headerStart + commit.header.indexOf(`(${commit.scope})`) + 1;
-    const scopeEnd = headerStart + scopeStart + commit.scope.length;
-    ranges.scope = [scopeStart, scopeEnd];
+    if (commit.scope) {
+      const scopeStart =
+        headerStart + commit.header.indexOf(`(${commit.scope})`) + 1;
+      const scopeEnd = headerStart + scopeStart + commit.scope.length;
+      ranges.scope = [scopeStart, scopeEnd];
+    }
   }
 
   return ranges;
