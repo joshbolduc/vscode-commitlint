@@ -123,7 +123,7 @@
     "esbuild": "0.16.13",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
-    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-import": "2.29.1",
     "prettier": "3.2.5",
     "standard-version": "9.5.0",
     "ts-eager": "2.0.2",
