@@ -7,6 +7,7 @@ import { parseCommit } from './parse';
 vi.mock('./log');
 vi.mock('./settings');
 vi.mock('./tryGetGitExtensionApi.ts');
+vi.mock('./createWorker');
 
 describe('parse', () => {
   const versions = readdirSync(testLibRootPath).filter((item) =>

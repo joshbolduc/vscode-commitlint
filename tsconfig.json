@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "ES2022",
+    "moduleResolution": "node",
     "target": "esnext",
     "outDir": "out",
     "lib": ["ES2019"],
@@ -8,7 +9,6 @@
     "rootDir": ".",
     "strict": true,
     "skipLibCheck": true,
-    "resolveJsonModule": true,
     "isolatedModules": true,
     "importsNotUsedAsValues": "error",
     "noUncheckedIndexedAccess": true

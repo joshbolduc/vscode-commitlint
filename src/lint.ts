@@ -1,53 +1,23 @@
-import type { LintOptions } from '@commitlint/types';
-import { loadConfig } from './config';
-import { isNodeExceptionCode } from './isNodeExceptionCode';
-import { importCommitlintLint } from './loadLibrary';
-import { log } from './log';
+import { lint } from './ipcClient/lint';
 import { StatusCode, updateStatusBar } from './statusBar';
 
-async function tryLoadConfig(path: string | undefined) {
-  try {
-    return await loadConfig(path);
-  } catch (e) {
-    if (isNodeExceptionCode(e, 'ENOENT')) {
-      log(
-        `Couldn't load commitlint config at ${e.path ?? '(unknown path)'} (${
-          e.code
-        })`,
-      );
-    } else {
-      log(`Load config error stack:\n${e as string}`);
-    }
-    return undefined;
-  }
-}
-
 export async function runLint(text: string, path: string | undefined) {
-  const config = await tryLoadConfig(path);
+  const lintResult = await lint(text, path);
 
-  if (!config) {
+  if (!lintResult?.loadedConfig) {
     updateStatusBar(0, StatusCode.ConfigLoadFailed);
     return undefined;
   }
 
-  const ruleCount = Object.keys(config.rules).length;
-  log(
-    `[${new Date().toLocaleString()}] ${ruleCount} commitlint ${
-      ruleCount === 1 ? 'rule' : 'rules'
-    }:\n${JSON.stringify(config.rules)}`,
-  );
+  const { ruleCount, errors, helpUrl, warnings } = lintResult;
+
   updateStatusBar(ruleCount);
 
-  const lint = importCommitlintLint(path);
-
   return {
-    problems: await lint(text, config.rules, {
-      defaultIgnores: config.defaultIgnores,
-      helpUrl: config.helpUrl,
-      ignores: config.ignores,
-      parserOpts: config.parserPreset?.parserOpts as LintOptions['parserOpts'],
-      plugins: config.plugins,
-    }),
-    helpUrl: config.helpUrl,
+    problems: {
+      errors,
+      warnings,
+    },
+    helpUrl,
   };
 }

@@ -1,10 +1,8 @@
-import type parse from '@commitlint/parse';
+import type { Commit } from '@commitlint/types';
 import { DEFAULT_COMMENT_CHAR } from './commentChar';
-import { importCommitlintParse } from './loadLibrary';
+import { parse } from './ipcClient/parse';
 import { LINE_BREAK, splitCommit } from './splitCommit';
 import { getScissorsLine } from './verbose';
-
-type Commit = Awaited<ReturnType<typeof parse>>;
 
 type KnownSection = 'header' | 'body' | 'footer' | 'scope' | 'subject' | 'type';
 
@@ -78,11 +76,10 @@ function getCommitRanges(commit: Readonly<Commit> | typeof EMPTY_COMMIT) {
 export async function parseCommit(
   text: string,
   path: string | undefined,
-  {
-    commentChar,
-    verbose,
-  }: { commentChar: string | undefined; verbose: boolean },
+  parseOptions: { commentChar: string | undefined; verbose: boolean },
 ) {
+  const { commentChar, verbose } = parseOptions;
+
   function isCommentLine(line: string) {
     return commentChar && line.startsWith(commentChar);
   }
@@ -117,11 +114,12 @@ export async function parseCommit(
     .filter((line) => !isCommentLine(line))
     .join(LINE_BREAK);
 
-  const parse = importCommitlintParse(path);
-
   // parse will throw on empty commit messages
   const commit =
-    sanitizedText === '' ? EMPTY_COMMIT : await parse(sanitizedText);
+    (sanitizedText === ''
+      ? undefined
+      : (await parse(sanitizedText, path, parseOptions))?.commit) ??
+    EMPTY_COMMIT;
   const originalRanges = getCommitRanges(commit);
 
   const { offsets } = inputLines.reduce<{
