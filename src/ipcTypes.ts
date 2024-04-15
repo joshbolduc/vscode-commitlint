@@ -1,9 +1,12 @@
 import type {
-  Commit,
   LintRuleOutcome,
   LoadOptions,
   QualifiedRules,
 } from '@commitlint/types';
+
+type ParsedCommit = Awaited<
+  ReturnType<typeof import('@commitlint/parse').default>
+>;
 
 export type MessageId = number;
 
@@ -22,7 +25,7 @@ export interface ParseIpcRequest extends IpcRequestContext {
 }
 
 export interface ParseIpcResponse {
-  commit: Commit;
+  commit: ParsedCommit;
 }
 
 export interface LintIpcRequest extends IpcRequestContext {
