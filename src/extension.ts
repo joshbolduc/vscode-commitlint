@@ -8,6 +8,7 @@ import {
 } from 'vscode';
 
 import { refreshDiagnostics } from './diagnostics';
+import { disposeWorkerManager } from './ipcClient/workerManager';
 import { initLogger } from './log';
 import { disposeStatusBar, initStatusBar } from './statusBar';
 
@@ -53,4 +54,5 @@ export function activate(context: ExtensionContext) {
 
 export function deactivate() {
   disposeStatusBar();
+  disposeWorkerManager();
 }
