@@ -1,7 +1,9 @@
 import { getContext } from '../getContext';
-import type { ParseIpcRequest } from '../ipcTypes';
+import type { ParseIpcRequest, ParseIpcResponse } from '../ipcTypes';
 import { log } from '../log';
 import { ensureWorkerManager } from './workerManager';
+
+export type Commit = ParseIpcResponse['commit'];
 
 export const parse = async (
   text: string,
