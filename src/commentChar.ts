@@ -10,8 +10,16 @@ export async function getCommentChar(doc: TextDocument, uri: Uri | undefined) {
     return undefined;
   }
 
-  return (
-    (uri ? await getGitConfigForUri(uri, 'core.commentchar') : undefined) ??
-    DEFAULT_COMMENT_CHAR
-  );
+  if (uri) {
+    try {
+      const result = await getGitConfigForUri(uri, 'core.commentchar');
+      if (result) {
+        return result;
+      }
+    } catch {
+      // git extension likely not (yet) loaded
+    }
+  }
+
+  return DEFAULT_COMMENT_CHAR;
 }
