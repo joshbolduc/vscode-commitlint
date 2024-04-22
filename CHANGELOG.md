@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.6.0](https://github.com/joshbolduc/vscode-commitlint/compare/v2.5.1...v2.6.0) (2024-04-22)
+
+### Features
+
+- update bundled commitlint to v19 ([eca1c82](https://github.com/joshbolduc/vscode-commitlint/commit/eca1c827242258f24608defea92c06c2d63932a3))
+
+### Bug Fixes
+
+- catch attempt to load unloaded git extension ([752119c](https://github.com/joshbolduc/vscode-commitlint/commit/752119c0bbed1e3beeae257404c60d6177966005))
+- correctly fall back to default comment char ([fe7d457](https://github.com/joshbolduc/vscode-commitlint/commit/fe7d457c5a2a4b59fc936ee3eee6b11a1019d75e))
+- restore commitlint v19 support ([8df7494](https://github.com/joshbolduc/vscode-commitlint/commit/8df7494d48a34c05fe36b0978262d8c927638c72))
+
 ### [2.5.1](https://github.com/joshbolduc/vscode-commitlint/compare/v2.5.0...v2.5.1) (2024-03-08)
 
 ### Bug Fixes
