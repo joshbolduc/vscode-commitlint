@@ -58,6 +58,57 @@ if (parentPort) {
           }:\n${JSON.stringify(config.rules)}`,
         );
 
+        if (typeof message.extendsRules === 'object' && message.extendsRules !== null) {
+          /** @template T The type of the rule value. If valid, it will be `QualifiedRules | undefined` */
+          type AnyInvalidRuleValue<T> = T extends typeof message.extendsRules[string]
+            ? never
+            : T;
+          const invalidRules: Record<string, AnyInvalidRuleValue<unknown>> = {};
+          const isInvalidRule = (entry: [string, unknown]): entry is [string, AnyInvalidRuleValue<unknown>] => {
+            if (!Array.isArray(entry[1])) {
+              return true;
+            }
+
+            const isInvalid = true,
+              isValid = false,
+              maybeRuleValue: readonly unknown[] = Object.freeze(entry[1]);
+
+            /* disabled*/
+            if (maybeRuleValue.length === 1 && maybeRuleValue[0] === 0) {
+              return isValid;
+            }
+
+            /* warning or error w/ optional value */
+            if (maybeRuleValue.length === 2 || maybeRuleValue.length === 3
+              && (maybeRuleValue[0] === 1 || maybeRuleValue[0] === 2)
+              && (maybeRuleValue[1] === 'always' || maybeRuleValue[1] === 'never')
+            ) {
+              // Type cast because typescript still thinks it's unknown[] despite narrowing.
+              // Reminder: this line will be reduced to `(maybeRuleValue);` after build.
+              (maybeRuleValue as [(1 | 2), ('always' | 'never')] | [(1 | 2), ('always' | 'never'), unknown]) satisfies typeof message.extendsRules[string];
+              return isValid;
+            }
+
+            invalidRules[entry[0]] = maybeRuleValue;
+            return isInvalid;
+          }
+
+          // remove some invalid rules from client's rules (non-thorough). The
+          // rules of a bad config (e.g. in settings.json) may contain non-rule
+          // values. This should be _loudly_ reported to the user. Although
+          // commitlint would report it, it won't denote the config the invalid
+          // rules came from. We must do it, instead.
+          message.extendsRules = Object.fromEntries(
+            Object.entries(message.extendsRules)
+              .filter((entry) => !isInvalidRule(entry))
+          ) satisfies typeof message.extendsRules;
+
+          if (Object.keys(invalidRules).length > 0) {
+            // TODO: change to warn(...) after implementing multi-LogLevel logging in IPC API. See https://www.npmjs.com/package/@vscode-logging/logger
+            log(`One or more rules configured in user- or workspace-scoped settings.json#commitlint.config.extend.rules are invalid!\n${JSON.stringify(invalidRules, undefined, 2)}`);
+          }
+        }
+
         return {
           ...config,
           rules: { ...message.extendsRules, ...config.rules },
