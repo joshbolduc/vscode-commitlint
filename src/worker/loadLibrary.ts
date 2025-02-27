@@ -58,7 +58,7 @@ export const tryLoadDynamicLibrary = <T>(
       // Ensure the path is importable, e.g., on Windows
       const pathHref = pathToFileURL(resolvePath).href;
 
-      log(`loading ${name} dynamically via ${resolvePath}`);
+      log(`loading ${name} dynamically via ${pathHref}`);
       return {
         result: importDefaultExport<T>(pathHref),
         path: pathHref,
