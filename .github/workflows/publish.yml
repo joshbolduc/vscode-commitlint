@@ -22,7 +22,7 @@ jobs:
       - name: Package VSIX
         run: npm run package
       - name: Archive VSIX
-        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3
+        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4
         with:
           name: vsix
           path: '*.vsix'
