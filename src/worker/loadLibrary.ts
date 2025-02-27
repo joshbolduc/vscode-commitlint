@@ -1,4 +1,5 @@
 import { resolve } from 'path';
+import { pathToFileURL } from 'url';
 import type { IpcRequestContext } from '../ipcTypes';
 import { getPrefixForLibraryLoad } from './utils/getPrefixForLibraryLoad';
 import { getSystemGlobalLibraryPath } from './utils/getSystemGlobalLibraryPath';
@@ -54,10 +55,13 @@ export const tryLoadDynamicLibrary = <T>(
         ],
       });
 
-      log(`loading ${name} dynamically via ${resolvePath}`);
+      // Ensure the path is importable, e.g., on Windows
+      const pathHref = pathToFileURL(resolvePath).href;
+
+      log(`loading ${name} dynamically via ${pathHref}`);
       return {
-        result: importDefaultExport<T>(resolvePath),
-        path: resolvePath,
+        result: importDefaultExport<T>(pathHref),
+        path: pathHref,
         fallback: false,
       };
     } catch (e) {
