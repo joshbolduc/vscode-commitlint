@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.6.1](https://github.com/joshbolduc/vscode-commitlint/compare/v2.6.0...v2.6.1) (2025-02-27)
+
+### Bug Fixes
+
+- **loadLibrary:** prefix all module paths with `file:///` before dynamically importing them ([#792](https://github.com/joshbolduc/vscode-commitlint/issues/792)) ([e9e15c1](https://github.com/joshbolduc/vscode-commitlint/commit/e9e15c14171c567c125d272ffa28b4cff375bec8)), closes [#744](https://github.com/joshbolduc/vscode-commitlint/issues/744)
+
 ## [2.6.0](https://github.com/joshbolduc/vscode-commitlint/compare/v2.5.1...v2.6.0) (2024-04-22)
 
 ### Features
