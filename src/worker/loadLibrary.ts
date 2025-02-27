@@ -1,9 +1,9 @@
 import { resolve } from 'path';
+import { pathToFileURL } from 'url';
 import type { IpcRequestContext } from '../ipcTypes';
 import { getPrefixForLibraryLoad } from './utils/getPrefixForLibraryLoad';
 import { getSystemGlobalLibraryPath } from './utils/getSystemGlobalLibraryPath';
 import { isNodeExceptionCode } from './utils/isNodeExceptionCode';
-import { pathToFileURL } from 'url'
 
 interface BaseLoadResult<T> {
   result: Promise<UnwrapDefault<T>>;
@@ -36,7 +36,7 @@ const unwrapDefaultExport = <T>(module: T): UnwrapDefault<T> => {
 };
 
 const importDefaultExport = async <T>(path: string) => {
-  const result = (await import(pathToFileURL(path).href)) as T;
+  const result = (await import(path)) as T;
   return unwrapDefaultExport(result);
 };
 
@@ -55,10 +55,13 @@ export const tryLoadDynamicLibrary = <T>(
         ],
       });
 
+      // Ensure the path is importable, e.g., on Windows
+      const pathHref = pathToFileURL(resolvePath).href;
+
       log(`loading ${name} dynamically via ${resolvePath}`);
       return {
-        result: importDefaultExport<T>(resolvePath),
-        path: resolvePath,
+        result: importDefaultExport<T>(pathHref),
+        path: pathHref,
         fallback: false,
       };
     } catch (e) {
