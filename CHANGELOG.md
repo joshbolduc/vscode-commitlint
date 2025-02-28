@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.6.2](https://github.com/joshbolduc/vscode-commitlint/compare/v2.6.1...v2.6.2) (2025-02-28)
+
+### Bug Fixes
+
+- identify correct repo when using SCM input in multi-root workspace ([#798](https://github.com/joshbolduc/vscode-commitlint/issues/798)) ([668ab40](https://github.com/joshbolduc/vscode-commitlint/commit/668ab4026cf7474b27e1895728b0fb385f5f6938)), closes [#797](https://github.com/joshbolduc/vscode-commitlint/issues/797)
+
 ### [2.6.1](https://github.com/joshbolduc/vscode-commitlint/compare/v2.6.0...v2.6.1) (2025-02-27)
 
 ### Bug Fixes
