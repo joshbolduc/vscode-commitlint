@@ -86,23 +86,30 @@ function getUriForDoc(doc: TextDocument) {
   }
 
   if (isScmTextInput(doc)) {
+    // Sufficiently recent versions of VS Code include a rootUri query parameter
+    const queryParams = new URLSearchParams(doc.uri.query);
+    const rootUri = queryParams.get('rootUri');
+
+    if (rootUri) {
+      return Uri.parse(rootUri, true);
+    }
+
+    // Older versions require fragile, undocumented tricks that don't work in
+    // later versions
     const git = tryGetGitExtensionApi();
 
     if (git) {
-      const matches = /scm\/git\/scm([0-9]+)\//.exec(doc.uri.path);
+      const matches = /git\/scm([0-9]+)\//.exec(doc.uri.path);
       if (matches?.[1]) {
         const handle = parseInt(matches[1]);
 
         const repo = git.repositories.find((repo) => {
           try {
-            // This is undocumented, but there doesn't seem to be a better way to
-            // figure out which repository the doc corresponds to
             return (
               (repo.inputBox as InputBoxPrivate)._inputBox
                 ._sourceControlHandle === handle
             );
           } catch {
-            // Undocumented API might have changed
             return false;
           }
         });
