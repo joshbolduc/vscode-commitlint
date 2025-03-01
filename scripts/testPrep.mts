@@ -1,4 +1,4 @@
-import { spawnSync } from 'child_process';
+import { spawnSync, type CommonSpawnOptions } from 'child_process';
 import { readdirSync, statSync } from 'fs';
 import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
@@ -13,7 +13,10 @@ const main = () => {
 
   testDirs.forEach((path) => {
     console.log(`Preparing ${path}`);
-    spawnSync('npm', ['ci'], { cwd: path, stdio: 'inherit' });
+    const opts: CommonSpawnOptions = { cwd: path, stdio: 'inherit' };
+    if (process.platform === 'win32')
+      opts.shell = 'cmd.exe'
+    spawnSync('npm', ['ci'], opts);
   });
 };
 
