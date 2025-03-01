@@ -1,17 +1,17 @@
 {
   "compilerOptions": {
-    "module": "ES2022",
-    "moduleResolution": "node",
-    "target": "esnext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ES2023",
     "outDir": "out",
-    "lib": ["ES2019"],
     "sourceMap": true,
     "rootDir": ".",
     "strict": true,
     "skipLibCheck": true,
     "isolatedModules": true,
-    "importsNotUsedAsValues": "error",
-    "noUncheckedIndexedAccess": true
+    "verbatimModuleSyntax": true,
+    "noUncheckedIndexedAccess": true,
+    "composite": true
   },
   "exclude": ["node_modules"]
 }
