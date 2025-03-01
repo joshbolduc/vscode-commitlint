@@ -1,6 +1,9 @@
 import { spawnSync } from 'child_process';
 import { readdirSync, statSync } from 'fs';
-import { resolve } from 'path';
+import { dirname, resolve } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const main = () => {
   const testProjectRootPath = resolve(__dirname, '..', 'test', 'commitlint');
@@ -14,6 +17,4 @@ const main = () => {
   });
 };
 
-if (require.main === module) {
-  main();
-}
+main();
