@@ -1,17 +1,4 @@
 {
-  "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "target": "ES2023",
-    "outDir": "out",
-    "sourceMap": true,
-    "rootDir": ".",
-    "strict": true,
-    "skipLibCheck": true,
-    "isolatedModules": true,
-    "verbatimModuleSyntax": true,
-    "noUncheckedIndexedAccess": true,
-    "composite": true
-  },
+  "extends": "./tsconfig.base.json",
   "exclude": ["node_modules", "out", "dist"]
 }
