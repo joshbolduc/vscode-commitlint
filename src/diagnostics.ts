@@ -1,4 +1,4 @@
-import type { LintRuleOutcome } from '@commitlint/types';
+import type { LintRuleOutcome, RuleConfigSeverity } from '@commitlint/types';
 import {
   Diagnostic,
   type DiagnosticCollection,
@@ -50,7 +50,7 @@ function createDiagnostic(
   const diagnostic = new Diagnostic(
     new Range(doc.positionAt(startIndex), doc.positionAt(endIndex)),
     result.message,
-    result.level === 2 ? DiagnosticSeverity.Error : DiagnosticSeverity.Warning,
+    result.level === (2 as RuleConfigSeverity.Error) ? DiagnosticSeverity.Error : DiagnosticSeverity.Warning,
   );
 
   let target: Uri | undefined;
