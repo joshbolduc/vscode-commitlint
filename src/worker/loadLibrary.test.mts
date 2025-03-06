@@ -1,8 +1,8 @@
 import { resolve } from 'path';
 import { pathToFileURL } from 'url';
 import { describe, expect, it } from 'vitest';
-import { testLibRootPath } from '../../test/util';
-import { loadLibrary, tryLoadDynamicLibrary } from './loadLibrary';
+import { testLibRootPath } from '../../test/util.mjs';
+import { loadLibrary, tryLoadDynamicLibrary } from './loadLibrary.js';
 
 describe('loadLibrary', () => {
   const noOp = () => {

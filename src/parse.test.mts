@@ -1,8 +1,8 @@
 import { readdirSync, readFileSync, statSync } from 'fs';
 import { join, resolve } from 'path';
 import { describe, expect, it, vi } from 'vitest';
-import { fixturesPath, testLibRootPath } from '../test/util';
-import { parseCommit } from './parse';
+import { fixturesPath, testLibRootPath } from '../test/util.mjs';
+import { parseCommit } from './parse.js';
 
 vi.mock('./log');
 vi.mock('./settings');
@@ -145,15 +145,14 @@ Body line`,
 
     fixtures.forEach(
       ([fixture, expected, options = { commentChar: '#', verbose: false }]) => {
-        it(`parses ${fixture} using ${version} (${
-          options.commentChar
-        }, verbose: ${String(options.verbose)})`, async () => {
-          const contents = readFileSync(join(fixturesPath, fixture)).toString();
+        it(`parses ${fixture} using ${version} (${options.commentChar
+          }, verbose: ${String(options.verbose)})`, async () => {
+            const contents = readFileSync(join(fixturesPath, fixture)).toString();
 
-          expect(await parseCommit(contents, libPath, options)).toStrictEqual(
-            expected,
-          );
-        });
+            expect(await parseCommit(contents, libPath, options)).toStrictEqual(
+              expected,
+            );
+          });
       },
     );
   });
