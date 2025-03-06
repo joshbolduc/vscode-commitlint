@@ -1,12 +1,15 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "//": "config extended by all tsconfigs in this repo",
+  "$schema": "https://json.schemastore.org/tsconfig#",
+  "//": {
+    "description": "config extended by all tsconfigs in this repo"
+  },
   "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "target": "ES2023",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "target": "ESNext",
     "outDir": "out",
     "sourceMap": true,
+    "declarationMap": true,
     "rootDir": ".",
     "strict": true,
     "skipLibCheck": true,
@@ -14,5 +17,12 @@
     "verbatimModuleSyntax": true,
     "noUncheckedIndexedAccess": true,
     "composite": true
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "out",
+    "dist",
+    "**/tsconfig.json",
+    "**/tsconfig.*.json"
+  ]
 }
