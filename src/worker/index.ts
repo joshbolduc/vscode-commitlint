@@ -88,10 +88,11 @@ if (parentPort) {
     };
     const mergedRules = {
       ...(message.extendsRules ?? {}),
-      ...config.rules
+      ...config.rules,
     };
-    const problems = await lint(message.text, config.rules, rawOpts)
-      .then(async () => await lint(message.text, mergedRules, rawOpts));
+    const problems = await lint(message.text, config.rules, rawOpts).then(
+      async () => await lint(message.text, mergedRules, rawOpts),
+    );
 
     return {
       ...problems,
