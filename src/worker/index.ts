@@ -19,8 +19,7 @@ import { isNodeExceptionCode } from './utils/isNodeExceptionCode';
 
 if (parentPort) {
   const postResult = (response: IpcServerToClientMessage) => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    parentPort!.postMessage(response);
+    parentPort?.postMessage(response);
   };
 
   const log = (message: string) => {
@@ -58,10 +57,7 @@ if (parentPort) {
           }:\n${JSON.stringify(config.rules)}`,
         );
 
-        return {
-          ...config,
-          rules: { ...message.extendsRules, ...config.rules },
-        };
+        return config;
       } catch (e) {
         if (isNodeExceptionCode(e, 'ENOENT')) {
           log(
@@ -83,13 +79,19 @@ if (parentPort) {
       };
     }
 
-    const problems = await lint(message.text, config.rules, {
+    const rawOpts = {
       defaultIgnores: config.defaultIgnores,
       helpUrl: config.helpUrl,
       ignores: config.ignores,
       parserOpts: config.parserPreset?.parserOpts as LintOptions['parserOpts'],
       plugins: config.plugins,
-    });
+    };
+    const mergedRules = {
+      ...(message.extendsRules ?? {}),
+      ...config.rules
+    };
+    const problems = await lint(message.text, config.rules, rawOpts)
+      .then(async () => await lint(message.text, mergedRules, rawOpts));
 
     return {
       ...problems,
