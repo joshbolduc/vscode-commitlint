@@ -1,5 +1,5 @@
 import { DEFAULT_COMMENT_CHAR } from './commentChar';
-import { Commit, parse } from './ipcClient/parse';
+import { type Commit, parse } from './ipcClient/parse';
 import { LINE_BREAK, splitCommit } from './splitCommit';
 import { getScissorsLine } from './verbose';
 

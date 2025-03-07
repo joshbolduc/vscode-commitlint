@@ -1,10 +1,10 @@
 import type { LintRuleOutcome } from '@commitlint/types';
 import {
   Diagnostic,
-  DiagnosticCollection,
+  type DiagnosticCollection,
   DiagnosticSeverity,
   Range,
-  TextDocument,
+  type TextDocument,
   Uri,
   workspace,
 } from 'vscode';
