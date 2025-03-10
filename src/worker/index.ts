@@ -19,7 +19,8 @@ import { isNodeExceptionCode } from './utils/isNodeExceptionCode';
 
 if (parentPort) {
   const postResult = (response: IpcServerToClientMessage) => {
-    parentPort?.postMessage(response);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    parentPort!.postMessage(response);
   };
 
   const log = (message: string) => {
