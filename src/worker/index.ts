@@ -87,19 +87,47 @@ if (parentPort) {
       parserOpts: config.parserPreset?.parserOpts as LintOptions['parserOpts'],
       plugins: config.plugins,
     };
-    const mergedRules = message.extendsRules === undefined
-      ? config.rules
-      : { ...message.extendsRules, ...config.rules };
-    const problems = await lint(message.text, config.rules, rawOpts).then(
-      async () => await lint(message.text, mergedRules, rawOpts),
-    );
+    const mergedRules =
+      message.extendsRules === undefined
+        ? config.rules
+        : { ...message.extendsRules, ...config.rules };
+    try {
+      const problems = await lint(message.text, mergedRules, rawOpts);
 
-    return {
-      ...problems,
-      helpUrl: 'https://github.com/conventional-changelog/commitlint',
-      loadedConfig: true,
-      ruleCount: Object.keys(config.rules).length,
-    };
+      return {
+        ...problems,
+        helpUrl: 'https://github.com/conventional-changelog/commitlint',
+        loadedConfig: true,
+        ruleCount: Object.keys(mergedRules).length,
+      };
+    } catch (error) {
+      // Failed to lint with merged rules; would we succeed with just the loaded config?
+      try {
+        await lint(message.text, config.rules, rawOpts);
+        // Yes, it's probably something in settings.json -- log or return something accordingly
+
+        // todo: notification e.g. "failed to load commitlint config; see logs for details". Maybe grab https://www.npmjs.com/package/@vscode-logging/logger
+        log(
+          new Error(
+            "Failed to load Commitlint config. Cause: The config file loaded, but rules defined in vscode-commitlint's settings are invalid or you are missing their plugin.",
+            { cause: error },
+          ).toString(),
+        );
+        return { loadedConfig: false };
+      } catch (e) {
+        // No, it's something else -- log or return something accordingly
+
+        // todo: notification e.g. "failed to load commitlint config; see logs for details". Maybe grab https://www.npmjs.com/package/@vscode-logging/logger
+        log(
+          new AggregateError(
+            [error, e],
+            'Commitlint config failed to load.',
+          ).toString(),
+        );
+
+        return { loadedConfig: false };
+      }
+    }
   };
 
   const handleMessage = ({ message, id }: IpcClientToServerMessage) => {
