@@ -87,10 +87,9 @@ if (parentPort) {
       parserOpts: config.parserPreset?.parserOpts as LintOptions['parserOpts'],
       plugins: config.plugins,
     };
-    const mergedRules = {
-      ...(message.extendsRules ?? {}),
-      ...config.rules,
-    };
+    const mergedRules = message.extendsRules === undefined
+      ? config.rules
+      : { ...message.extendsRules, ...config.rules };
     const problems = await lint(message.text, config.rules, rawOpts).then(
       async () => await lint(message.text, mergedRules, rawOpts),
     );
