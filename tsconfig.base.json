@@ -18,6 +18,7 @@
     "noUncheckedIndexedAccess": true,
     "composite": true
   },
+  "compileOnSave": true,
   "exclude": [
     "node_modules",
     "out",
