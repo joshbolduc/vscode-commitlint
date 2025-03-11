@@ -98,7 +98,7 @@
     "build:production": "npm run -s build -- --minify",
     "package": "npm run -s build:production && vsce package --githubBranch main",
     "deploy": "vsce publish --packagePath commitlint-*.vsix",
-    "format": "prettier --check '{.vscode,src}/**/*.{json,ts}' '*.{json,md}'",
+    "format": "prettier --cache --check '{.vscode,src}/**/*.{json,ts}' '*.{json,md}'",
     "format:fix": "npm run -s format -- --write",
     "lint": "eslint src --ext ts --max-warnings 0 --cache",
     "lint:fix": "npm run -s lint -- --fix",
