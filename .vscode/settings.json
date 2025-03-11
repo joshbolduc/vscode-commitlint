@@ -1,10 +1,10 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
   "eslint.useFlatConfig": false,
-  "[typescript]": {
+  "[typescript][javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[javascript]": {
+  "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }
