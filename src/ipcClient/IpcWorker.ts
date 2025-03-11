@@ -1,3 +1,4 @@
+import type { ExecException } from 'node:child_process';
 import type { Worker } from 'node:worker_threads';
 import { createWorker } from '../createWorker';
 import type {
@@ -26,9 +27,7 @@ const withResolvers = <T>() => {
 
   return {
     promise,
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     resolve: resolve!,
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     reject: reject!,
   };
 };
@@ -45,12 +44,16 @@ export class IpcWorker {
         resolve(new IpcWorker(worker, onDisconnect));
       });
 
-      worker.on('error', () => {
-        reject();
+      worker.on('error', (err) => {
+        reject(err);
       });
 
-      worker.on('exit', () => {
-        reject();
+      worker.on('exit', (exitCode) => {
+        const err = new Error(
+          `IPC Worker terminated. Exit Code: ${exitCode}`,
+        ) as ExecException;
+        err.code = exitCode;
+        reject(err);
       });
     });
   }
