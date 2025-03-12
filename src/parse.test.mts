@@ -4,10 +4,11 @@ import { describe, expect, it, vi } from 'vitest';
 import { fixturesPath, testLibRootPath } from '../test/util.mjs';
 import { parseCommit } from './parse.js';
 
-vi.mock('./log');
-vi.mock('./settings');
-vi.mock('./tryGetGitExtensionApi.ts');
-vi.mock('./createWorker');
+vi.mock('./log', async () => await import('./__mocks__/log.mjs'));
+vi.mock('../log', async () => await import('./__mocks__/log.mjs'));
+vi.mock('./settings', async () => await import('./__mocks__/settings.mjs'));
+vi.mock('./tryGetGitExtensionApi', async () => await import('./__mocks__/tryGetGitExtensionApi.mjs'));
+vi.mock('./createWorker', async () => await import('./__mocks__/createWorker.mjs'));
 
 describe('parse', () => {
   const versions = readdirSync(testLibRootPath).filter((item) =>
