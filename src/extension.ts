@@ -1,8 +1,8 @@
 import {
-  DiagnosticCollection,
-  ExtensionContext,
+  type DiagnosticCollection,
+  type ExtensionContext,
   languages,
-  TextDocument,
+  type TextDocument,
   window,
   workspace,
 } from 'vscode';

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig#",
+  "//": {
+    "description": "config extended by all tsconfigs in this repo"
+  },
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "target": "ESNext",
+    "outDir": "out",
+    "sourceMap": true,
+    "declarationMap": true,
+    "rootDir": ".",
+    "strict": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "noUncheckedIndexedAccess": true,
+    "composite": true
+  },
+  "compileOnSave": true,
+  "exclude": [
+    "node_modules",
+    "out",
+    "dist",
+    "**/tsconfig.json",
+    "**/tsconfig.*.json"
+  ]
+}

@@ -124,7 +124,7 @@ export const importCommitlintLoad = async (
   );
 
   if (prefixPath) {
-    if (typeof oldEnvPrefix === undefined) {
+    if (oldEnvPrefix === undefined) {
       delete process.env.PREFIX;
     } else {
       process.env.PREFIX = oldEnvPrefix;

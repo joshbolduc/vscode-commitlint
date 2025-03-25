@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.base.json",
+  "include": [
+    "!tsconfig.json",
+    "**/*",
+    "../src/**/*.test.ts",
+    "../src/**/*.test.mts",
+    "../src/__mocks__/**/*"
+  ],
+  "references": [
+    {
+      "path": "../src/tsconfig.json"
+    }
+  ]
+}

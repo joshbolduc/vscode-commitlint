@@ -5,6 +5,7 @@ export const stringify = (item: unknown) => {
     }`;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-base-to-string
   if (typeof item === 'object' && String(item) === '[object Object]') {
     try {
       return JSON.stringify(item);

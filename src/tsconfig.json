@@ -1,0 +1,10 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ES2023"
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["__mocks__", "**/*.test.ts"]
+}

@@ -1,17 +1,20 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "module": "ES2022",
-    "moduleResolution": "node",
-    "target": "esnext",
-    "outDir": "out",
-    "lib": ["ES2019"],
-    "sourceMap": true,
-    "rootDir": ".",
-    "strict": true,
-    "skipLibCheck": true,
-    "isolatedModules": true,
-    "importsNotUsedAsValues": "error",
-    "noUncheckedIndexedAccess": true
+    "noEmit": true,
+    "allowJs": true,
+    "checkJs": true
   },
-  "exclude": ["node_modules"]
+  "include": ["*.cjs", "*.cts", "*.js", "*.mjs", "*.mts", "*.ts"],
+  "references": [
+    {
+      "path": "./src/tsconfig.json"
+    },
+    {
+      "path": "./scripts/tsconfig.json"
+    },
+    {
+      "path": "./test/tsconfig.json"
+    }
+  ]
 }

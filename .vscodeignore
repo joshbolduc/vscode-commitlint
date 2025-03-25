@@ -1,9 +1,12 @@
 .github/**
 .vscode/**
 coverage/**
+images/**
+out/**
 src/**
 test/**
 .gitignore
+.eslintcache
 **/tsconfig.json
 **/.prettierignore
 **/.prettierrc
