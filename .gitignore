@@ -6,3 +6,4 @@ coverage/
 *.vsix
 null.txt
 changelog.release.md
+.eslintcache
