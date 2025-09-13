@@ -10,7 +10,7 @@
     "strict": true,
     "skipLibCheck": true,
     "isolatedModules": true,
-    "importsNotUsedAsValues": "error",
+    "verbatimModuleSyntax": true,
     "noUncheckedIndexedAccess": true
   },
   "exclude": ["node_modules"]
