@@ -103,7 +103,7 @@
     "lint:fix": "npm run -s lint -- --fix",
     "release": "standard-version",
     "test": "vitest run",
-    "test:prep": "TS_NODE_PROJECT=tsconfig.scripts.json node -r ts-eager/register ./scripts/testPrep.ts",
+    "test:prep": "tsx --tsconfig ./tsconfig.scripts.json ./scripts/testPrep.ts",
     "typecheck": "tsc --build",
     "typecheck:watch": "npm run -s typecheck -- --watch"
   },
@@ -126,7 +126,7 @@
     "eslint-plugin-import": "2.26.0",
     "prettier": "3.2.5",
     "standard-version": "9.5.0",
-    "ts-eager": "2.0.2",
+    "tsx": "4.20.5",
     "typescript": "5.9.2",
     "vite": "5.1.5",
     "vitest": "1.3.1",
