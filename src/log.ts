@@ -1,4 +1,4 @@
-import { OutputChannel, window } from 'vscode';
+import { type OutputChannel, window } from 'vscode';
 import { getLogEnabled } from './settings';
 
 let outputChannel: OutputChannel;
