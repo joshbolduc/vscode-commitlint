@@ -34,10 +34,6 @@ jobs:
         run: npm run lint
       - name: Format
         run: npm run format
-      - name: Publish to marketplace
-        run: npm run deploy
-        env:
-          VSCE_PAT: ${{ secrets.VSCE_PAT }}
       - name: Read changelog
         uses: yashanand1910/standard-release-notes@15525b3bbc0f8260a205d192d567ba8b89a8d392 # v1.3.0
         id: changelog
@@ -52,3 +48,11 @@ jobs:
           overwrite: true
           file_glob: true
           body: ${{ steps.changelog.outputs.release_notes }}
+      - name: Publish to marketplace
+        run: npm run deploy
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+      - name: Publish to Open VSX
+        run: npm run deploy:openvsx
+        env:
+          OVSX_PAT: ${{ secrets.OPEN_VSX_TOKEN }}
