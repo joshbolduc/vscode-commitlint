@@ -7,6 +7,7 @@ export const getSystemGlobalLibraryPath = () => {
     cachedGlobalLibraryPath = spawnSync(
       process.platform === 'win32' ? 'npm.cmd' : 'npm',
       ['root', '-g'],
+      { shell: process.platform === 'win32' },
     )
       .stdout?.toString()
       .trim();
