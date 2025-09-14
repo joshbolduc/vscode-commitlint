@@ -45,12 +45,12 @@ export class IpcWorker {
         resolve(new IpcWorker(worker, onDisconnect));
       });
 
-      worker.on('error', () => {
-        reject();
+      worker.on('error', (err) => {
+        reject(err);
       });
 
-      worker.on('exit', () => {
-        reject();
+      worker.on('exit', (code) => {
+        reject(new Error(`Worker exited with code ${code}`));
       });
     });
   }
