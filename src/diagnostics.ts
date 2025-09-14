@@ -1,4 +1,4 @@
-import type { LintRuleOutcome } from '@commitlint/types';
+import type { LintRuleOutcome, RuleConfigSeverity } from '@commitlint/types';
 import {
   Diagnostic,
   type DiagnosticCollection,
@@ -17,6 +17,8 @@ import { stringify } from './stringify';
 import { tryGetGitExtensionApi } from './tryGetGitExtensionApi';
 import { isGitCommitDoc, isScmTextInput } from './utils';
 import { getVerbose } from './verbose';
+
+const RuleConfigSeverityError: RuleConfigSeverity.Error = 2;
 
 interface InputBoxPrivate extends InputBox {
   _inputBox: {
@@ -50,7 +52,9 @@ function createDiagnostic(
   const diagnostic = new Diagnostic(
     new Range(doc.positionAt(startIndex), doc.positionAt(endIndex)),
     result.message,
-    result.level === 2 ? DiagnosticSeverity.Error : DiagnosticSeverity.Warning,
+    result.level === RuleConfigSeverityError
+      ? DiagnosticSeverity.Error
+      : DiagnosticSeverity.Warning,
   );
 
   let target: Uri | undefined;
