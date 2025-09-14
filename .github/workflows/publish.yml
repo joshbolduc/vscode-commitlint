@@ -35,7 +35,7 @@ jobs:
       - name: Format
         run: npm run format
       - name: Read changelog
-        uses: yashanand1910/standard-release-notes@15525b3bbc0f8260a205d192d567ba8b89a8d392 # v1.3.0
+        uses: yashanand1910/standard-release-notes@28752849855b451d0d2bee11a83a4da2d794ecf6 # v1.5.0
         id: changelog
         with:
           version: ${{ github.ref }}
