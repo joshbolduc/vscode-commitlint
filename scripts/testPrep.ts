@@ -10,7 +10,11 @@ const main = () => {
 
   testDirs.forEach((path) => {
     console.log(`Preparing ${path}`);
-    spawnSync('npm', ['ci'], { cwd: path, stdio: 'inherit' });
+    spawnSync('npm', ['ci'], {
+      cwd: path,
+      stdio: 'inherit',
+      shell: process.platform === 'win32',
+    });
   });
 };
 
