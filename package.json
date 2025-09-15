@@ -15,7 +15,7 @@
   "homepage": "https://github.com/joshbolduc/vscode-commitlint",
   "license": "MIT",
   "engines": {
-    "npm": "^10.0.0",
+    "npm": "^11.0.0",
     "vscode": "^1.65.0"
   },
   "categories": [
