@@ -118,7 +118,7 @@
     "@commitlint/types": "19.0.3",
     "@eslint/js": "9.35.0",
     "@types/eslint-config-prettier": "6.11.3",
-    "@types/node": "18.19.124",
+    "@types/node": "18.19.129",
     "@types/vscode": "1.65.0",
     "@vitest/coverage-v8": "3.2.4",
     "@vscode/vsce": "3.6.0",
