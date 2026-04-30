@@ -63,17 +63,31 @@ jobs:
       - name: Install test project dependencies
         run: npm ci
         working-directory: test-projects/conventional
-      - name: Install global commitlint/conventional commits
-        run: npm install -g commitlint @commitlint/config-conventional
-      - name: Run VSCode tests
+      - name: Run VSCode tests without global install
         if: runner.os != 'Linux'
         run: npm run test:vscode
         working-directory: proj
         env:
           CLTEST_PROJECTS_ROOT: ../test-projects
-      - name: Run VSCode tests (Linux)
+      - name: Run VSCode tests without global install (Linux)
         if: runner.os == 'Linux'
         run: xvfb-run -a npm run test:vscode
         working-directory: proj
         env:
           CLTEST_PROJECTS_ROOT: ../test-projects
+      - name: Install global commitlint/conventional commits
+        run: npm install -g commitlint @commitlint/config-conventional
+      - name: Run VSCode tests with global install
+        if: runner.os != 'Linux'
+        run: npm run test:vscode
+        working-directory: proj
+        env:
+          CLTEST_PROJECTS_ROOT: ../test-projects
+          CLTEST_GLOBAL: true
+      - name: Run VSCode tests with global install (Linux)
+        if: runner.os == 'Linux'
+        run: xvfb-run -a npm run test:vscode
+        working-directory: proj
+        env:
+          CLTEST_PROJECTS_ROOT: ../test-projects
+          CLTEST_GLOBAL: true

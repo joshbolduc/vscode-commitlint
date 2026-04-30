@@ -7,7 +7,7 @@ import {
 } from './utils';
 
 suite('vscode-commitlint', () => {
-  test('reports diagnostics for commit message in editor', async () => {
+  test(`${process.env.CLTEST_EXPECT_DIAGNOSTICS ? 'reports' : 'does not report'} diagnostics for commit message in editor`, async () => {
     await vscode.commands.executeCommand('workbench.action.closeAllEditors');
 
     const document = await vscode.workspace.openTextDocument({
@@ -26,7 +26,7 @@ suite('vscode-commitlint', () => {
       true,
     );
 
-    assert.deepStrictEqual(resolvedDiagnostics.map(simplifyDiagnostic), [
+    assert.deepStrictEqual(resolvedDiagnostics.map(simplifyDiagnostic), process.env.CLTEST_EXPECT_DIAGNOSTICS ? [
       makeClDiagnostic({
         severity: vscode.DiagnosticSeverity.Error,
         message: 'subject may not be empty',
@@ -45,6 +45,6 @@ suite('vscode-commitlint', () => {
         ],
         code: 'type-empty',
       }),
-    ]);
+    ] : []);
   });
 });
