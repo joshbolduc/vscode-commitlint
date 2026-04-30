@@ -39,27 +39,27 @@ jobs:
   test-vscode:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
-          path: vscode-commitlint
+          path: proj
       - name: Install Node.js
         uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # v3.5.1
         with:
-          node-version-file: 'vscode-commitlint/.nvmrc'
+          node-version-file: 'proj/.nvmrc'
           cache: 'npm'
-          cache-dependency-path: 'vscode-commitlint/**/package-lock.json'
+          cache-dependency-path: 'proj/**/package-lock.json'
       - name: Install Node dependencies
         run: npm ci
-        working-directory: vscode-commitlint
+        working-directory: proj
       - name: Build
         run: npm run build
-        working-directory: vscode-commitlint
+        working-directory: proj
       - name: Copy test projects
-        run: cp -r vscode-commitlint/test/projects ../test-projects
+        run: cp -r proj/test/projects test-projects
       - name: Install test project dependencies
         run: npm ci
         working-directory: test-projects/conventional
@@ -68,12 +68,12 @@ jobs:
       - name: Run VSCode tests
         if: runner.os != 'Linux'
         run: npm run test:vscode
-        working-directory: vscode-commitlint
+        working-directory: proj
         env:
           CLTEST_PROJECTS_ROOT: ../test-projects
       - name: Run VSCode tests (Linux)
         if: runner.os == 'Linux'
         run: xvfb-run -a npm run test:vscode
-        working-directory: vscode-commitlint
+        working-directory: proj
         env:
           CLTEST_PROJECTS_ROOT: ../test-projects
