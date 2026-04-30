@@ -93,7 +93,9 @@ if (parentPort) {
 
     return {
       ...problems,
-      helpUrl: config.helpUrl ?? 'https://github.com/conventional-changelog/commitlint',
+      helpUrl:
+        config.helpUrl ??
+        'https://github.com/conventional-changelog/commitlint',
       loadedConfig: true,
       ruleCount: Object.keys(config.rules).length,
     };
