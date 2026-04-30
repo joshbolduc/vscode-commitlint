@@ -20,8 +20,8 @@ suite('vscode-commitlint', () => {
     const resolvedDiagnostics = await watchForDiagnostics(document.uri);
 
     assert.strictEqual(
-      vscode.window.activeTextEditor!.document
-        .getText()
+      vscode.window
+        .activeTextEditor!.document.getText()
         .includes('Sample content'),
       true,
     );
