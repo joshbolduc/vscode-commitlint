@@ -40,18 +40,30 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
+        node-installer: [actions, conda]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
           path: proj
-      - name: Install Node.js
+      - name: Install Node.js via setup-node
+        if: matrix.node-installer == 'actions'
         uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # v3.5.1
         with:
           node-version-file: "proj/.nvmrc"
           cache: "npm"
           cache-dependency-path: "proj/**/package-lock.json"
+      - name: Setup miniconda
+        if: matrix.node-installer == 'conda'
+        uses: conda-incubator/setup-miniconda@v3
+      - name: Install Node via conda
+        if: matrix.node-installer == 'conda'
+        run: conda install -y --quiet -c conda-forge nodejs
+      - name: Get node path
+        run: which node
+      - name: Get npm path
+        run: which npm
       - name: Install Node dependencies
         run: npm ci
         working-directory: proj
