@@ -26,25 +26,30 @@ suite('vscode-commitlint', () => {
       true,
     );
 
-    assert.deepStrictEqual(resolvedDiagnostics.map(simplifyDiagnostic), process.env.CLTEST_EXPECT_DIAGNOSTICS ? [
-      makeClDiagnostic({
-        severity: vscode.DiagnosticSeverity.Error,
-        message: 'subject may not be empty',
-        range: [
-          [0, 0],
-          [0, 14],
-        ],
-        code: 'subject-empty',
-      }),
-      makeClDiagnostic({
-        severity: vscode.DiagnosticSeverity.Error,
-        message: 'type may not be empty',
-        range: [
-          [0, 0],
-          [0, 14],
-        ],
-        code: 'type-empty',
-      }),
-    ] : []);
+    assert.deepStrictEqual(
+      resolvedDiagnostics.map(simplifyDiagnostic),
+      process.env.CLTEST_EXPECT_DIAGNOSTICS
+        ? [
+            makeClDiagnostic({
+              severity: vscode.DiagnosticSeverity.Error,
+              message: 'subject may not be empty',
+              range: [
+                [0, 0],
+                [0, 14],
+              ],
+              code: 'subject-empty',
+            }),
+            makeClDiagnostic({
+              severity: vscode.DiagnosticSeverity.Error,
+              message: 'type may not be empty',
+              range: [
+                [0, 0],
+                [0, 14],
+              ],
+              code: 'type-empty',
+            }),
+          ]
+        : [],
+    );
   });
 });
