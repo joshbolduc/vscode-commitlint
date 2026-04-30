@@ -1,0 +1,8 @@
+{
+  "name": "commitlint-test-conventional",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@commitlint/config-conventional": "20.5.0"
+  }
+}
