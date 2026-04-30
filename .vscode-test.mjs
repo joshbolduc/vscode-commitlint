@@ -8,10 +8,12 @@ const projectsRoot =
 
 export default defineConfig([
   {
+    label: 'conventional',
     files: 'out/test/**/*.test.js',
     workspaceFolder: resolve(projectsRoot, 'conventional'),
   },
   {
+    label: 'conventional-global',
     files: 'out/test/**/*.test.js',
     workspaceFolder: resolve(projectsRoot, 'conventional-global'),
   },
