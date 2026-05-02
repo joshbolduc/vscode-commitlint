@@ -70,6 +70,8 @@ jobs:
         run: which node
       - name: Get npm path
         run: which npm
+      - name: Get node version
+        run: node --version
       - name: Install Node dependencies
         run: npm ci
         working-directory: proj
