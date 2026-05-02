@@ -121,9 +121,11 @@ jobs:
         working-directory: proj
         env:
           CLTEST_PROJECTS_ROOT: ../test-projects-no-deps
+          CLTEST_GLOBAL: true
       - name: Run VSCode tests with global install (Linux)
         if: runner.os == 'Linux'
         run: xvfb-run -a npm run test:vscode
         working-directory: proj
         env:
           CLTEST_PROJECTS_ROOT: ../test-projects-no-deps
+          CLTEST_GLOBAL: true
