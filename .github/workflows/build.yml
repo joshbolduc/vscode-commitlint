@@ -111,7 +111,7 @@ jobs:
         env:
           CLTEST_PROJECTS_ROOT: ../test-projects
       - name: Install global commitlint/conventional commits
-        run: npm install -g commitlint @commitlint/config-conventional
+        run: npm install -g @commitlint/cli @commitlint/config-conventional
       - name: Run VSCode tests with global install
         if: runner.os != 'Linux'
         run: npm run test:vscode
