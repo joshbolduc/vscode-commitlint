@@ -73,12 +73,10 @@ jobs:
         with:
           auto-activate: true
           activate-environment: ""
+          conda-remove-defaults: true
       - name: Install Node via conda
-        if: matrix.node-installer == 'conda' && matrix.os != 'ubuntu-latest'
+        if: matrix.node-installer == 'conda'
         run: conda install -y --quiet conda-forge::nodejs
-      - name: Install Node via conda
-        if: matrix.node-installer == 'conda' && matrix.os == 'ubuntu-latest'
-        run: conda install -y --quiet -c conda-forge "nodejs>=22"
       - run: conda info
         if: matrix.node-installer == 'conda'
       - run: conda list
