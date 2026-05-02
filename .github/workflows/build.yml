@@ -73,6 +73,7 @@ jobs:
         with:
           auto-activate: true
           activate-environment: ""
+          channels: conda-forge
           conda-remove-defaults: true
       - name: Install Node via conda
         if: matrix.node-installer == 'conda'
