@@ -72,6 +72,12 @@ jobs:
       - name: Install Node via conda
         if: matrix.node-installer == 'conda'
         run: conda install -y --quiet -c conda-forge nodejs
+      - run: conda info
+        if: matrix.node-installer == 'conda'
+      - run: conda list
+        if: matrix.node-installer == 'conda'
+      - run: conda config --show
+        if: matrix.node-installer == 'conda'
       - name: Get node path
         run: which node
       - name: Get npm path
