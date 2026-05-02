@@ -50,6 +50,12 @@ jobs:
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
           path: proj
+      - name: Get node path
+        run: which node
+      - name: Get npm path
+        run: which npm
+      - name: Get node version
+        run: node --version
       - name: Install Node.js via setup-node
         if: matrix.node-installer == 'actions'
         uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # v3.5.1
