@@ -113,6 +113,8 @@ jobs:
           CLTEST_PROJECTS_ROOT: ../test-projects
       - name: Install global commitlint/conventional commits
         run: npm install -g @commitlint/cli @commitlint/config-conventional
+      - name: Remove local test project dependencies
+        run: rm -rf test-projects/conventional/node_modules
       - name: Run VSCode tests with global install
         if: runner.os != 'Linux'
         run: npm run test:vscode
