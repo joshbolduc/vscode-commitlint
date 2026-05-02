@@ -96,6 +96,8 @@ jobs:
         working-directory: proj
       - name: Copy test projects
         run: cp -r proj/test/projects test-projects
+      - name: Copy test projects without dependencies
+        run: cp -r proj/test/projects test-projects-no-deps
       - name: Install test project dependencies
         run: npm ci
         working-directory: test-projects/conventional
@@ -113,19 +115,15 @@ jobs:
           CLTEST_PROJECTS_ROOT: ../test-projects
       - name: Install global commitlint/conventional commits
         run: npm install -g @commitlint/cli @commitlint/config-conventional
-      - name: Remove local test project dependencies
-        run: rm -rf test-projects/conventional/node_modules
       - name: Run VSCode tests with global install
         if: runner.os != 'Linux'
         run: npm run test:vscode
         working-directory: proj
         env:
-          CLTEST_PROJECTS_ROOT: ../test-projects
-          CLTEST_GLOBAL: true
+          CLTEST_PROJECTS_ROOT: ../test-projects-no-deps
       - name: Run VSCode tests with global install (Linux)
         if: runner.os == 'Linux'
         run: xvfb-run -a npm run test:vscode
         working-directory: proj
         env:
-          CLTEST_PROJECTS_ROOT: ../test-projects
-          CLTEST_GLOBAL: true
+          CLTEST_PROJECTS_ROOT: ../test-projects-no-deps
