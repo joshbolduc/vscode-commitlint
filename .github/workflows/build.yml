@@ -44,6 +44,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         node-installer: [actions, conda]
+      fail-fast: false
     runs-on: ${{ matrix.os }}
     defaults:
       run:
