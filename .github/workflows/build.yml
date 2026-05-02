@@ -60,6 +60,9 @@ jobs:
       - name: Setup miniconda
         if: matrix.node-installer == 'conda'
         uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-activate: true
+          activate-environment: ""
       - name: Install Node via conda
         if: matrix.node-installer == 'conda'
         run: conda install -y --quiet -c conda-forge nodejs
