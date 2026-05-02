@@ -75,7 +75,7 @@ jobs:
           activate-environment: ""
       - name: Install Node via conda
         if: matrix.node-installer == 'conda'
-        run: conda install -y --quiet -c conda-forge "nodejs>=22"
+        run: conda install -y --quiet conda-forge::nodejs
       - run: conda info
         if: matrix.node-installer == 'conda'
       - run: conda list
