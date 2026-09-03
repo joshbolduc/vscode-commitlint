@@ -130,7 +130,7 @@
     "globals": "16.4.0",
     "ovsx": "0.10.5",
     "prettier": "3.6.2",
-    "standard-version": "9.5.0",
+    "commit-and-tag-version": "9.5.0",
     "tsx": "4.20.5",
     "typescript": "5.9.2",
     "typescript-eslint": "8.43.0",
