@@ -128,7 +128,7 @@
     "eslint-import-resolver-typescript": "4.4.4",
     "eslint-plugin-import-x": "4.16.1",
     "globals": "16.4.0",
-    "ovsx": "0.10.5",
+    "ovsx": "0.10.12",
     "prettier": "3.6.2",
     "standard-version": "9.5.0",
     "tsx": "4.20.5",
